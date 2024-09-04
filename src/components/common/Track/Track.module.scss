@@ -1,0 +1,91 @@
+.track {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: transparent;
+  height: 35px;
+  margin-block: 10px;
+  padding-block: 10px;
+  align-items: center;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #898989;
+
+  transition: all;
+  transition-duration: 0.20s;
+
+
+
+  .track_left {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+    }
+
+    .track_left_icon {
+      width: 40px;
+      height: 40px;
+      margin-inline: 7.5px;
+      border-radius: 5px;
+    }
+
+
+
+    .track_left_text_name {
+      color: #E6E6E6;
+
+    }
+  }
+
+  .track_right {
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+
+    * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 40px;
+      height: 40px;
+      margin-inline: 10px;
+    }
+  }
+}
+
+.track_left_icon_pp {
+  position: relative;
+  top: -44px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border-style: none;
+  background-color: rgba(77, 77, 77, 0.53);
+  transition: all;
+  transition-duration: 0.25s;
+  cursor: pointer;
+
+  * {
+    width: 30px;
+    height: 30px;
+    color: #E6E6E6;
+  }
+}
+
+.track:hover .track_left_icon_pp {
+  display: flex;
+}
+
+.track:hover {
+  background-color: #252525;
+}
+

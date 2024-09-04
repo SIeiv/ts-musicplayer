@@ -1,0 +1,28 @@
+$grey: #888888;
+$white: #E6E6E6;
+
+.main {
+  width: 100%;
+  padding-block: 75px;
+  text-align: center;
+
+  .icon {
+    * {
+      width: 75px;
+      height: 75px;
+      color: $grey;
+    }
+  }
+
+  .t1 {
+    padding: 15px;
+    font-weight: bold;
+    color: $white;
+    font-size: 20px;
+  }
+
+  .t2 {
+    color: $grey;
+    font-weight: bold;
+  }
+}

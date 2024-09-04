@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "HelveticaRegular";
+    src: url("./assets/helvetica_regular.otf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "YS Text Regular Regular";
+    src: url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.eot");
+    src: url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/23a02e8af5ef33a9b496dd524401550f.svg#YS Text Regular Regular")format("svg");
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    background-color: #0D0D0D;
+    font-family: "YS Text Regular Regular";
+}

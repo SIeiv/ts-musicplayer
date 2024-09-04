@@ -1,0 +1,56 @@
+.navbar {
+  height: 100%;
+  width: 215px;
+  background-color: #0D0D0D;
+  padding: 10px;
+
+  .buttons {
+    margin-block: 25px;
+  }
+  .pins {
+    margin-block: 25px;
+  }
+
+  .button {
+    display: flex;
+    text-decoration: none;
+    color: #808080;
+    font-size: 15px;
+    font-weight: bold;
+    align-items: center;
+    margin: 5px;
+    padding: 10px;
+
+    :hover {
+
+    }
+
+    .icon {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+    }
+  }
+
+  .activebutton {
+    display: flex;
+    text-decoration: none;
+    color: #E6E6E6;
+    font-size: 15px;
+    font-weight: bold;
+    align-items: center;
+    margin: 5px;
+    padding: 10px;
+
+    .icon {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+    }
+  }
+}
+
+
+

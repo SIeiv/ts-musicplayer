@@ -1,0 +1,107 @@
+.content {
+  height: 100%;
+  background-color: #171717;
+  margin: 10px;
+  border-radius: 10px;
+  border: solid 1px #1B1B1B;
+  overflow-y: scroll;
+}
+
+.contentWrapper {
+  margin: 10px;
+  padding: 10px;
+}
+
+.maincontentMyVibeFX {
+  position: absolute;
+  top: 10px;
+  z-index: -0.1;
+}
+
+
+.maincontentMyVibe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+
+
+  button {
+    height: 50px;
+    background-color: transparent;
+    color: #E6E6E6;
+    border-style: none;
+    cursor: pointer;
+    z-index: 0;
+  }
+}
+
+.maincontentNavBtns {
+  display: flex;
+  height: 75px;
+}
+
+.maincontentNavBtnActive {
+  text-decoration: none;
+  font-weight: bold;
+  color: #E6E6E6;
+  background-color: #252525;
+  margin: 5px;
+  padding: 20px;
+  border-radius: 50px;
+  z-index: 0;
+}
+
+.maincontentNavBtn {
+  text-decoration: none;
+  font-weight: bold;
+  color: #E6E6E6;
+  background-color: transparent;
+  margin: 5px;
+  padding: 20px;
+  border-radius: 50px;
+  z-index: 0;
+}
+
+.contentSearch {
+
+  .contentSearch_search {
+    display: flex;
+    height: 40px;
+    border-radius: 50px;
+    background-color: #121212;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #4D4D4D;
+    transition: all;
+    transition-duration: 0.20s;
+    margin-bottom: 10px;
+  }
+
+  .contentSearch_search_icon {
+    margin-inline: 10px;
+    height: 40px;
+    font-size: 20px;
+
+  }
+
+  input {
+    width: 100%;
+    background-color: #121212;
+    border-style: none;
+    border-radius: 50px;
+    color: #E6E6E6;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .contentSearch_search:hover  {
+    border-color: #808080;
+  }
+
+  .contentSearch_search:focus-within  {
+   border-color: #E6E6E6;
+  }
+}
