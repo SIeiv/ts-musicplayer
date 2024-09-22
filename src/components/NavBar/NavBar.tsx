@@ -11,7 +11,7 @@ const NavBar = () => (
             <NavBarButton name={"Поиск"} to={"/search"} icon={<CgSearch/>}/>
             <NavBarButton name={"Главная"} to={"/main/fy"} icon={<PiMusicNotesBold />}/>
             <NavBarButton name={"Подкасты"} to={"/podcasts"} icon={<MdOutlinePodcasts />}/>
-            <NavBarButton name={"Коллекции"} to={"/favorite"} icon={<MdFavorite />}/>
+            <NavBarButton name={"Коллекция"} to={"/favorites"} icon={<MdFavorite />}/>
         </div>
         <div className={styles.pins}>
             {/*<NavBarPinnedPlaylist name={"Мне нравится"} to={"/"} cover={""}/>*/}

@@ -7,17 +7,19 @@ import {
     audioPlayNext,
     audioPlayPrev,
     audioResume, audioSwitchIsRandom, audioSwitchIsRepeating,
-    changeAudioVolume,
+    changeAudioVolume, myVibeNext,
     onScrollChange
 } from "../../redux/main.slice.ts";
 import {useEffect, useState} from "react";
 import {IoMdVolumeHigh, IoMdVolumeOff} from "react-icons/io";
-import {RxLoop} from "react-icons/rx";
 import {LiaRandomSolid} from "react-icons/lia";
+import {LuRepeat, LuRepeat1} from "react-icons/lu";
+import FavoriteButton from "../common/FavoriteButton/FavoriteButton.tsx";
 
 const Player = () => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const isPlaying = useAppSelector(state => state.main.audioState.isPlaying);
+    const isMyVibePlaying = useAppSelector(state => state.main.audioState.isMyVibePlaying);
     const isRepeating = useAppSelector(state => state.main.audioState.isRepeating);
     const isRandom = useAppSelector(state => state.main.audioState.isRandom);
     const audioSource = useAppSelector(state => state.main.audioState.source)
@@ -75,28 +77,37 @@ const Player = () => {
         <div className={styles.player}>
             <div className={styles.player_left}>
                 <div className={styles.player_left_icon}>
-                    <img src={currentTrack.image ? currentTrack.image : missingTitle} alt=""/>
+                    <img src={currentTrack.cover ? currentTrack.cover : missingTitle} alt=""/>
                 </div>
                 <div className={styles.player_left_text}>
                     <div className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</div>
                     <div className={styles.track_left_text_author}>{currentTrack.author ? currentTrack.author : "-"}</div>
+                </div>
+                <div className={styles.favoriteButton}>
+                    <FavoriteButton trackEntity={currentTrack}/>
                 </div>
             </div>
             <div className={styles.player_center}>
                 <div className={styles.player_center_buttons}>
                     <button style={{color: isRepeating ? "#E6E6E6" : "#888888"}}
                             onClick={() => {dispatch(audioSwitchIsRepeating())}}>
-                        <RxLoop />
+                        {isRepeating === 2 ? <LuRepeat1 /> : <LuRepeat />}
                     </button>
                     <button className={styles.prev} onClick={() => {dispatch(audioPlayPrev())}}><MdSkipPrevious/></button>
-                    {isPlaying
+                    {isPlaying || isMyVibePlaying
                         ? <button onClick={() => {
                             dispatch(audioPause())
                         }} className={styles.player_center_buttons_play}><MdOutlinePauseCircleFilled/></button>
                         : <button onClick={() => {
                             dispatch(audioResume())
                         }} className={styles.player_center_buttons_play}><MdOutlinePlayCircleFilled/></button>}
-                    <button className={styles.next} onClick={() => {dispatch(audioPlayNext())}}><MdSkipNext/></button>
+                    <button className={styles.next} onClick={() => {
+                        if (isPlaying) {
+                            dispatch(audioPlayNext());
+                        } else if (isMyVibePlaying) {
+                            dispatch(myVibeNext());
+                        }
+                    }}><MdSkipNext/></button>
                     <button style={{color: isRandom ? "#E6E6E6" : "#888888"}} onClick={() => {dispatch(audioSwitchIsRandom())}}>
                         <LiaRandomSolid />
                     </button>

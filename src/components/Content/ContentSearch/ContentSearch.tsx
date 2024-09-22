@@ -1,17 +1,10 @@
 import styles from "./../Content.module.scss";
-import {CiSearch} from "react-icons/ci";
 import {useAppSelector} from "../../../hooks.ts";
 import {useState} from "react";
 import Track from "../../common/Track/Track.tsx";
 import SearchNotFound from "../../common/SearchNotFound/SearchNotFound.tsx";
-
-type TrackType = {
-    url: string,
-    image: string,
-    author: string,
-    name: string,
-    id: number
-}
+import {TrackType} from "../../../types/type.ts";
+import SearchField from "../../common/SearchField/SearchField.tsx";
 
 const ContentSearch = () => {
     const tracks = useAppSelector(state => state.main.allTracks);
@@ -33,12 +26,13 @@ const ContentSearch = () => {
 
     return (
         <div className={styles.contentSearch}>
-            <div>
+            <SearchField searchInput={searchInput} onSearchChange={onSearchChange} placeholder={"Трек, альбом, исполнитель"}/>
+            {/*<div>
                 <div tabIndex={0} className={styles.contentSearch_search}>
                     <CiSearch className={styles.contentSearch_search_icon}/>
                     <input value={searchInput} onChange={onSearchChange} placeholder={"Трек, альбом, исполнитель"} type="text"/>
                 </div>
-            </div>
+            </div>*/}
             <div>
                 {trackElements.length === 0 && searchInput !== "" ? <SearchNotFound/> : trackElements}
             </div>

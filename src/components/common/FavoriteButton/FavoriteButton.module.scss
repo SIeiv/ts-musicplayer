@@ -1,0 +1,27 @@
+.favoriteButton {
+  background-color: transparent;
+  border-style: none;
+  color: #898989;
+  cursor: pointer;
+
+  transition: color;
+  transition-duration: 0.2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-inline: 10px;
+
+  width: 100%;
+  height: 100%;
+
+  * {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.favoriteButton:hover {
+  color: #E6E6E6;
+}

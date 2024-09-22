@@ -4,14 +4,19 @@ import myVibeFX from "../../../assets/mv-black.mp4"
 import MainContentNavBtn from "./MainContentNavBtn.tsx";
 import {Route, Routes} from "react-router-dom";
 import MainContentForYou from "./MainContentForYou/MainContentForYou.tsx";
+import {useAppDispatch} from "../../../hooks.ts";
+import {myVibePlay} from "../../../redux/main.slice.ts";
 
-const MainContent = () => (
+const MainContent = () => {
+    const dispatch = useAppDispatch();
+
+    return (
     <div className={styles.maincontent}>
         <div className={styles.maincontentMyVibe}>
             <video autoPlay loop className={styles.maincontentMyVibeFX} muted>
                 <source src={myVibeFX}/>
             </video>
-            <button>
+            <button onClick={() => {dispatch(myVibePlay())}}>
                 <FaPlay />
                 Моя волна
             </button>
@@ -27,6 +32,6 @@ const MainContent = () => (
             </Routes>
         </div>
     </div>
-);
+)};
 
 export default MainContent;

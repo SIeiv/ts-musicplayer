@@ -1,8 +1,92 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {AuthorType, NewTrackType, TrackType} from "../types/type.ts";
+import {getAllTracks} from "../helpers/helpers.ts";
 
-const DOMAIN = 'http://f1003580.xsph.ru/'
+const DOMAIN = 'http://f1003580.xsph.ru/';
 
 const initialState = {
+    mainData: [
+        {
+            name: "Powerwolf", id: 1, avatar: "", albums: [
+                {
+                    name: "Blessed & Possessed", id: 1, cover: "", tracks: [
+                        {name: "Army of the Night", id: 111, url: "", cover: ""}
+                    ]
+                },
+                {
+                    name: "AI Music", id: 2, tracks: [
+                        {
+                            name: "Владимир Путин Молодец!",
+                            id: 121,
+                            url: DOMAIN + "Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover).mp3",
+                            cover: DOMAIN + "Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover)_maxresdefault.jpg"
+                        }
+                    ]
+                },
+            ]
+        },
+        {
+            name: "Серёга Пират", id: 2, avatar: DOMAIN + "serega-pirat/avatar.jpg", albums: [
+                {
+                    name: "Гимн Дахака", id: 1, cover: DOMAIN + "serega-pirat/albums/gimn-daxaka/cover.jpg", year: "2020",
+                    isSingle: true, tracks: [
+                        {
+                            name: "Гимн Дахака", id: 1,
+                            url: DOMAIN + "serega-pirat/albums/gimn-daxaka/tracks/Гимн%20Дахака.mp3",
+                            cover: DOMAIN + "serega-pirat/albums/gimn-daxaka/tracks/cover.jpg"
+                        }
+                    ]
+                },
+                {
+                    name: "Невошедшее", id: 2, cover: DOMAIN + "serega-pirat/avatar.jpg", year: "2024",
+                    isSingle: false, tracks: [
+                        {
+                            name: "Гимн", id: 2,
+                            url: DOMAIN + "Серёга Пират - Гимн (оригинал...).mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "на ласт пик берёшь саппорта", id: 3,
+                            url: DOMAIN + "lastpick.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "я не пойду с тобой гулять", id: 4,
+                            url: DOMAIN + "Серега Пират - я не пойду с тобой гулять.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "Мой сларк", id: 5,
+                            url: DOMAIN + "Пират - мой сларк.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "шизоид", id: 6,
+                            url: DOMAIN + "Серега Пират - шизоид.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "что?", id: 7,
+                            url: DOMAIN + "Пират - что？.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "Тильт", id: 8,
+                            url: DOMAIN + "СЕРЕГА ПИРАТ - ТИЛЬТ.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                        {
+                            name: "новогодняя", id: 9,
+                            url: DOMAIN + "Серега пират - новогодняя.mp3",
+                            cover: DOMAIN + "serega-pirat/avatar.jpg"
+                        },
+                    ]
+                },
+            ]
+        }
+    ] as Array<AuthorType>,
+
+
     allTracks: [
         {
             url: DOMAIN + "Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover).mp3",
@@ -256,37 +340,27 @@ const initialState = {
             "name": "МОЙ ТОПОР",
             id: 36
         },
-        {
-            "url": DOMAIN + 'neverlove/Neverlove_-_GINEKOLOG_78001495.mp3',
-            "image": "https://t2.genius.com/unsafe/340x340/https%3A%2F%2Fimages.genius.com%2Fc34e085df4d4686b34cfef909b1ed6fb.1000x1000x1.png",
-            "author": "Neverlove",
-            "name": "Гинеколог",
-            id: 37
-        },
-        {
-            "url": DOMAIN + 'neverlove/Neverlove_-_Gollandskijj_SHturval_75319091.mp3',
-            "image": "",
-            "author": "Neverlove",
-            "name": "Голландский штурвал",
-            id: 38
-        },
-    ],
+    ] as Array<TrackType>,
 
     audioState: {
         source: new Audio(),
         isPlaying: false,
-        isRepeating: false,
+        isMyVibePlaying: false,
+        isRepeating: 0,
         isRandom: false,
         currentQueue: [] as Array<any>,
         placeInQueue: 0,
         currentTrack: {
-            url: null,
-            image: null,
-            author: null,
             name: null,
-            id: null
-        }
-    }
+            id: null,
+            url: null,
+            cover: null,
+            author: null,
+            isFavorite: null
+        } as NewTrackType
+    },
+
+    favoritePlaylist: [] as Array<NewTrackType>
 }
 
 initialState.audioState.source.volume = 0.2;
@@ -295,7 +369,7 @@ const mainSlice = createSlice({
     name: 'main',
     initialState,
     reducers: {
-        audioPlay({audioState}, {payload: {src, track, queue}}) {
+        audioPlay({audioState}, {payload: {src, track, queue, author}}) {
             audioState.isPlaying = false;
             audioState.source.src = src;
             audioState.currentTrack = track;
@@ -318,14 +392,42 @@ const mainSlice = createSlice({
             audioState.source.play();
             audioState.isPlaying = true;
         },
+        //refactor etot yzhas syka
         audioPlayNext({audioState}) {
-            if (audioState.currentQueue.length - 1 > audioState.placeInQueue) {
-                audioState.placeInQueue++;
+            if (audioState.isRandom === true) {
+                audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
+                audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+                audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+                audioState.source.play();
+                audioState.isPlaying = true;
+            } else if (audioState.isRepeating === 0) {
+                if (audioState.currentQueue.length - 1 > audioState.placeInQueue) {
+                    audioState.placeInQueue++;
+                    audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+                    audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+                    audioState.source.play();
+                    audioState.isPlaying = true;
+                } else {
+                    audioState.isPlaying = false;
+                }
+            } else if (audioState.isRepeating === 1) {
+                if (audioState.currentQueue.length - 1 === audioState.placeInQueue) {
+                    audioState.placeInQueue = 0;
+                } else if (audioState.currentQueue.length - 1 > audioState.placeInQueue) {
+                    audioState.placeInQueue++;
+                }
+                audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+                audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+                audioState.source.play();
+                audioState.isPlaying = true;
+            } else if (audioState.isRepeating === 2) {
+                audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+                audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+                audioState.source.play();
+                audioState.isPlaying = true;
             }
-            audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
-            audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
-            audioState.source.play();
-            audioState.isPlaying = true;
+
+
         },
         audioPlayPrev({audioState}) {
             if (0 < audioState.placeInQueue) {
@@ -338,10 +440,42 @@ const mainSlice = createSlice({
         },
 
         audioSwitchIsRepeating({audioState}) {
-            audioState.isRepeating = !audioState.isRepeating;
+            if (audioState.isRepeating === 0) {
+                audioState.isRepeating = 1
+            } else if (audioState.isRepeating === 1) {
+                audioState.isRepeating = 2
+            } else if (audioState.isRepeating === 2) {
+                audioState.isRepeating = 0
+            }
         },
         audioSwitchIsRandom({audioState}) {
             audioState.isRandom = !audioState.isRandom;
+        },
+
+        myVibePlay({audioState, allTracks}) {
+            audioState.currentQueue = allTracks;
+            audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
+            audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+            audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+            audioState.source.play();
+            audioState.isMyVibePlaying = true;
+        },
+
+        myVibeNext({audioState}) {
+            audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
+            audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+            audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+            audioState.source.play();
+            audioState.isMyVibePlaying = true;
+        },
+
+        myVibePause({audioState}) {
+            audioState.source.pause();
+            audioState.isMyVibePlaying = false;
+        },
+        myVibeResume({audioState}) {
+            audioState.source.play();
+            audioState.isMyVibePlaying = true;
         },
 
 
@@ -352,13 +486,48 @@ const mainSlice = createSlice({
             audioState.source.volume = action.payload;
         },
 
+        addTrackToFavoritePlaylist(state, {payload:{trackId, author}}) {
+            const allTracks = getAllTracks(state.mainData);
+
+            allTracks.forEach(t => {
+                if (t.id === trackId) {
+                    t.isFavorite = true;
+                    t.author = author
+                    state.favoritePlaylist = [t, ...state.favoritePlaylist]
+                }
+                if (state.audioState.currentTrack.id === trackId) {
+                    state.audioState.currentTrack.isFavorite = true;
+                    state.audioState.currentTrack.author = author
+                }
+            });
+        },
+        removeTrackFromFavoritePlaylist(state, action) {
+            state.favoritePlaylist.forEach((t, index) => {
+                if (t.id === action.payload) {
+                    state.favoritePlaylist.splice(index, 1);
+                }
+            });
+
+            const allTracks = getAllTracks(state.mainData);
+            allTracks.forEach(t => {
+                if (t.id === action.payload) {
+                    t.isFavorite = false;
+                }
+                if (state.audioState.currentTrack.id === action.payload) {
+                    state.audioState.currentTrack.isFavorite = false;
+                }
+            });
+        },
     }
 });
 
-export const {audioPlay, audioPause,
+export const {
+    audioPlay, audioPause,
     audioResume, onScrollChange,
     changeAudioVolume, audioPlayNext,
     audioPlayPrev, audioSwitchIsRepeating,
-    audioSwitchIsRandom} = mainSlice.actions;
+    audioSwitchIsRandom, myVibePlay, myVibeNext,
+    addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
+} = mainSlice.actions;
 export default mainSlice.reducer;
 

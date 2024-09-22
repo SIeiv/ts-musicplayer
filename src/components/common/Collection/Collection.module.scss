@@ -1,0 +1,22 @@
+.favoritesMain {
+  display: flex;
+  margin-block: 10px;
+
+  img {
+    width: 58px;
+    height: 58px;
+    border-radius: 10px;
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 7.5px;
+
+    .tracksCount {
+      color: #898989;
+      font-weight: bold;
+    }
+  }
+}

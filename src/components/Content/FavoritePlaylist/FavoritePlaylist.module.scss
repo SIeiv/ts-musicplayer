@@ -1,0 +1,66 @@
+.playlistHeader {
+  display: flex;
+
+  img {
+    width: 205px;
+    height: 205px;
+    border-radius: 10px;
+  }
+
+  .headerMain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    * {
+      font-weight: bold;
+    }
+
+    .playlist {
+      color: #898989;
+    }
+
+    .playlistTitle {
+      font-size: 45px;
+    }
+
+    .playlistAuthor {
+      color: #898989;
+      margin-top: 5px;
+    }
+
+    margin: 25px;
+  }
+}
+
+.trackList {
+  margin-block: 20px;
+}
+
+.playlistPlay {
+  background-color: #4D4D4D;
+  border-style: none;
+  color: #E6E6E6;
+  padding: 10px;
+  padding-inline: 30px;
+  border-radius: 30px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  transition: all;
+  transition-duration: 0.2s;
+
+  .icon {
+    margin-right: 5px;
+  }
+}
+
+.playlistPlay:hover {
+  background-color: #888888;
+}
+
+.search {
+  margin-block: 15px;
+}

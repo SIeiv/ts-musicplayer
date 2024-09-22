@@ -1,0 +1,77 @@
+.wrapper {
+
+  margin-right: 20px;
+
+  .cover {
+    width: 215px;
+    height: 215px;
+    position: relative;
+
+    * {
+      border-radius: 5px;
+    }
+
+    img {
+      position: absolute;
+      width: 215px;
+      height: 215px;
+    }
+
+    .overlay {
+      position: absolute;
+      display: flex;
+      align-items: end;
+      opacity: 0;
+      transition: all;
+      transition-duration: 0.2s;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 215px;
+      height: 215px;
+
+      .overlayWrap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .cover:hover {
+    .overlay {
+      opacity: 1;
+    }
+  }
+
+
+  .description {
+    margin-block: 5px;
+
+    * {
+      font-weight: bold;
+    }
+
+    .title {
+      margin-block: 3px;
+      color: #E6E6E6;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+    }
+
+    .author {
+      color: #898989;
+      text-decoration: none;
+
+      &:hover {
+        color: #E6E6E6;
+      }
+    }
+
+    .year {
+      color: #898989;
+    }
+  }
+}

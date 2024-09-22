@@ -1,12 +1,25 @@
 import styles from "./Track.module.scss";
 import missingTitle from "../../../assets/Missing_Tile_BE3.png";
-import {MdFavoriteBorder, MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled} from "react-icons/md";
-import {IoHeartDislikeOutline} from "react-icons/io5";
+import {MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled} from "react-icons/md";
+//import {IoHeartDislikeOutline} from "react-icons/io5";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
-import {audioPause, audioPlay, audioPlayNext, audioResume} from "../../../redux/main.slice.ts";
+import {
+    audioPause,
+    audioPlay,
+    audioPlayNext,
+    audioResume
+} from "../../../redux/main.slice.ts";
 import {useState} from "react";
+import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
+import {NewTrackType} from "../../../types/type.ts";
 
-const Track = ({trackEntity, queue}: any) => {
+interface IProps {
+    trackEntity: NewTrackType
+    author: string
+    queue: any[]
+}
+
+const Track = ({trackEntity, author, queue}: IProps) => {
     const dispatch = useAppDispatch();
     const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
     const audioEntity = useAppSelector(state => state.main.audioState.source);
@@ -18,9 +31,9 @@ const Track = ({trackEntity, queue}: any) => {
             return (
                 <button onClick={() => {
                     dispatch(audioPause());
-                }} className={styles.track_left_icon_pp}>
-                <MdOutlinePauseCircleFilled/>
-            </button>
+                }} className={styles.track_left_icon_pp_mod}>
+                    <MdOutlinePauseCircleFilled/>
+                </button>
             );
         }
         return (
@@ -31,9 +44,12 @@ const Track = ({trackEntity, queue}: any) => {
                     dispatch(audioPlay({
                         src: trackEntity.url,
                         track: trackEntity,
-                        queue: queue
+                        queue: queue,
+                        author
                     }));
-                    audioEntity.onended = () => {dispatch(audioPlayNext())};
+                    audioEntity.onended = () => {
+                        dispatch(audioPlayNext())
+                    };
                     setIsTouched(true);
                 }
             }} className={styles.track_left_icon_pp}>
@@ -42,26 +58,36 @@ const Track = ({trackEntity, queue}: any) => {
         );
     }
 
+    let isPlayingAnimation = () => {
+        if (currentTrack.id === trackEntity.id && isAudioPlaying) {
+            return (
+                <div className={styles.track_left_icon_anim}>
+                    p
+                </div>
+            );
+        }
+    }
+
+
+
     return (
         <div className={styles.track}>
             <div className={styles.track_left}>
                 <div className={styles.track_left_icon}>
-                    <img src={trackEntity.image ? trackEntity.image : missingTitle} alt=""/>
+                    <img src={trackEntity.cover ? trackEntity.cover : missingTitle} alt=""/>
+                    {isPlayingAnimation()}
                     {btnControl()}
                 </div>
                 <div className={styles.track_left_text}>
                     <div className={styles.track_left_text_name}>{trackEntity.name}</div>
-                    <div>{trackEntity.author}</div>
+                    <div>{author}</div>
                 </div>
             </div>
             <div className={styles.track_right}>
-                <div>
-                    <MdFavoriteBorder/>
+                <div className={styles.favorite}>
+                    <FavoriteButton trackEntity={trackEntity} author={author}/>
                 </div>
-                <div>
-                    <IoHeartDislikeOutline/>
-                </div>
-                <div>
+                <div className={styles.duration}>
                     <div>00:00</div>
                 </div>
             </div>

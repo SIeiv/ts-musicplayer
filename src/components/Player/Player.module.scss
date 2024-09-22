@@ -32,6 +32,14 @@
         color: #898989;
       }
     }
+
+    .favoriteButton {
+      display: flex;
+      margin-inline: 15px;
+
+      width: 35px;
+      height: 35px;
+    }
   }
 
   .player_center {

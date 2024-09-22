@@ -1,0 +1,30 @@
+.button {
+  text-decoration: none;
+  color: #E6E6E6;
+  font-weight: bold;
+  font-size: 22px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .arrow {
+    font-size: 20px;
+    color: #898989;
+    margin-inline: 5px;
+    display: flex;
+    align-items: start;
+    //cringe
+    margin-top: 3px;
+
+    transition: margin-left;
+    transition-duration: 0.2s;
+  }
+}
+
+.button:hover{
+  .arrow {
+    margin-inline: 10px;
+  }
+
+}
