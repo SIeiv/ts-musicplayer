@@ -45,8 +45,7 @@ function AuthorMainPage({authorEntity}: IProps) {
         }
     })
 
-    let AlbumEls = authorAlbums.map(e => <Album cover={e.cover}
-                                                author={authorEntity.name} title={e.name} year={e.year} isSingle={e.isSingle}/>);
+    let AlbumEls = authorAlbums.map(e => <Album author={authorEntity.name} AlbumEntity={e}/>);
 
     const onPlayClick = () => {
         dispatch(audioPlay({

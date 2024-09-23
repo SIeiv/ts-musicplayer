@@ -3,19 +3,22 @@ import {useAppSelector} from "../../../hooks.ts";
 import {useState} from "react";
 import Track from "../../common/Track/Track.tsx";
 import SearchNotFound from "../../common/SearchNotFound/SearchNotFound.tsx";
-import {TrackType} from "../../../types/type.ts";
+import {NewTrackType} from "../../../types/type.ts";
 import SearchField from "../../common/SearchField/SearchField.tsx";
+import {getAllTracks} from "../../../helpers/helpers.ts";
 
 const ContentSearch = () => {
-    const tracks = useAppSelector(state => state.main.allTracks);
+    const mainData = useAppSelector(state => state.main.mainData);
     const [searchInput, setSearchInput] = useState("");
 
+    const tracks = getAllTracks(mainData);
+
     let trackElements: Array<any> = [];
-    let trackEntities: Array<TrackType> = [];
+    let trackEntities: Array<NewTrackType> = [];
 
     tracks.forEach(t => {
-        if (searchInput === "/all" || (t.name.toLowerCase().includes(searchInput.toLowerCase()) && searchInput !== "")) {
-            trackElements.push(<Track trackEntity={t} queue={trackEntities}/>);
+        if (searchInput === "/all" || (t.name!.toLowerCase().includes(searchInput.toLowerCase()) && searchInput !== "")) {
+            trackElements.push(<Track trackEntity={t} queue={trackEntities} author={t.author!}/>);
             trackEntities.push(t);
         }
     });
@@ -27,12 +30,6 @@ const ContentSearch = () => {
     return (
         <div className={styles.contentSearch}>
             <SearchField searchInput={searchInput} onSearchChange={onSearchChange} placeholder={"Трек, альбом, исполнитель"}/>
-            {/*<div>
-                <div tabIndex={0} className={styles.contentSearch_search}>
-                    <CiSearch className={styles.contentSearch_search_icon}/>
-                    <input value={searchInput} onChange={onSearchChange} placeholder={"Трек, альбом, исполнитель"} type="text"/>
-                </div>
-            </div>*/}
             <div>
                 {trackElements.length === 0 && searchInput !== "" ? <SearchNotFound/> : trackElements}
             </div>
