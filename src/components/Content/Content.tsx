@@ -10,11 +10,26 @@ import AuthorMainPage from "./AuthorMainPage/AuthorMainPage.tsx";
 const Content = () => {
     const data = useAppSelector(state => state.main.mainData);
 
-    let routes = data.map(i => <Route path={`/${i.name.toLowerCase()}`}
-                                      element={<AuthorMainPage authorEntity={i}/>}>
-        <Route path={"tracks"} element={<div></div>}/>
-        <Route path={"familiar"} element={<div></div>}/>
-    </Route>)
+
+    let routes: Array<any> = []
+
+    data.forEach(author => {
+        let albumRoutes: Array<any> = [];
+
+        author.albums.forEach(album => {
+            albumRoutes.push(<Route path={`${album.name.toLowerCase()}`}/>)
+        })
+
+        routes.push(
+            <Route path={`/${author.name.toLowerCase()}`}
+                           element={<AuthorMainPage authorEntity={author}/>}>
+            <Route path={"tracks"} element={<div></div>}/>
+            <Route path={"familiar"} element={<div></div>}/>
+            <Route path={"albums"} element={<div></div>}/>
+                {albumRoutes}
+        </Route>
+        );
+    })
 
     return (
         <div className={styles.content}>

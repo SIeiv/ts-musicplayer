@@ -3,27 +3,27 @@ import {NavLink} from "react-router-dom";
 import {MdFavoriteBorder, MdOutlinePushPin} from "react-icons/md";
 import {IoMdPlayCircle} from "react-icons/io";
 import {audioPlay} from "../../../redux/main.slice.ts";
-import {AlbumType} from "../../../types/type.ts";
+import {AlbumType, NewTrackType} from "../../../types/type.ts";
 import {useAppDispatch} from "../../../hooks.ts";
-import {useEffect} from "react";
 
 interface IProps {
     AlbumEntity: AlbumType
     author: string
+    queue?: Array<NewTrackType>
 }
 
-function Album({AlbumEntity: {cover, name, year, isSingle, tracks, id}, author}: IProps) {
+function Album({AlbumEntity: {cover, name, year, isSingle, tracks}, author}: IProps) {
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        tracks.forEach(t => {t.author = author})
-    }, [])
+    let temp_tracks = tracks.map(t => {
+        return {...t, author};
+    })
 
     const onPlayClick = () => {
         dispatch(audioPlay({
-            src: tracks[0].url,
-            track: tracks[0],
-            queue: tracks,
+            src: temp_tracks[0].url,
+            track: temp_tracks[0],
+            queue: temp_tracks
         }))
     }
 
@@ -31,7 +31,7 @@ function Album({AlbumEntity: {cover, name, year, isSingle, tracks, id}, author}:
         <div className={styles.wrapper}>
             <div className={styles.cover}>
                 <img src={cover} alt=""/>
-                <div className={styles.overlay}>
+                <NavLink to={`/${author.toLowerCase()}/${name.toLowerCase()}`} className={styles.overlay}>
                     <div className={styles.overlayWrap}>
                         <button onClick={onPlayClick}><IoMdPlayCircle/></button>
                         <div>
@@ -40,7 +40,7 @@ function Album({AlbumEntity: {cover, name, year, isSingle, tracks, id}, author}:
                         </div>
                     </div>
 
-                </div>
+                </NavLink>
             </div>
             <div className={styles.description}>
                 <div>

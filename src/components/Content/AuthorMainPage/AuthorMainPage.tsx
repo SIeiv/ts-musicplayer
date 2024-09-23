@@ -11,6 +11,8 @@ import {Route, Routes} from "react-router-dom";
 import AuthorTracks from "./AuthorTracks/AuthorTracks.tsx";
 import FamiliarTracks from "./FamiliarTracks/FamiliarTracks.tsx";
 import {audioPlay} from "../../../redux/main.slice.ts";
+import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
+import AlbumPage from "./AlbumPage/AlbumPage.tsx";
 
 interface IProps {
     authorEntity: AuthorType
@@ -45,7 +47,7 @@ function AuthorMainPage({authorEntity}: IProps) {
         }
     })
 
-    let AlbumEls = authorAlbums.map(e => <Album author={authorEntity.name} AlbumEntity={e}/>);
+    let AlbumEls = authorAlbums.map(e => <Album author={authorEntity.name} AlbumEntity={e} queue={authorTracks}/>);
 
     const onPlayClick = () => {
         dispatch(audioPlay({
@@ -55,11 +57,20 @@ function AuthorMainPage({authorEntity}: IProps) {
         }))
     }
 
+    let albumRoutes: Array<any> = [];
+
+    authorEntity.albums.forEach(album => {
+        albumRoutes.push(<Route path={`/${album.name.toLowerCase()}`} element={<AlbumPage albumEntity={album}
+                                                                                          author={authorEntity.name}/>}/>)
+    })
+
     return (
         <div>
             <Routes>
                 <Route path={"/tracks"} element={<AuthorTracks authorTracks={authorTracks} author={authorEntity.name}/>}/>
                 <Route path={"/familiar"} element={<FamiliarTracks familiarTracks={favoriteTracks} author={authorEntity.name}/>}/>
+                <Route path={"/albums"} element={<AuthorAlbums authorAlbums={authorAlbums} authorName={authorEntity.name}/>}/>
+                {albumRoutes}
                 <Route path={""} element={<div><div className={styles.header}>
                     <img src={authorEntity.avatar} alt=""/>
                     <div className={styles.headerMain}>

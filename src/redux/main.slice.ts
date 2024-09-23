@@ -486,20 +486,23 @@ const mainSlice = createSlice({
             audioState.source.volume = action.payload;
         },
 
-        addTrackToFavoritePlaylist(state, {payload:{trackId, author}}) {
-            const allTracks = getAllTracks(state.mainData);
+        addTrackToFavoritePlaylist(state, {payload:{trackId, authorName}}) {
 
-            allTracks.forEach(t => {
-                if (t.id === trackId) {
-                    t.isFavorite = true;
-                    t.author = author
-                    state.favoritePlaylist = [t, ...state.favoritePlaylist]
-                }
-                if (state.audioState.currentTrack.id === trackId) {
-                    state.audioState.currentTrack.isFavorite = true;
-                    state.audioState.currentTrack.author = author
-                }
-            });
+            state.mainData.forEach(author => {
+                author.albums.forEach(album => {
+                    album.tracks.forEach(t => {
+                        if (t.id === trackId) {
+                            t.isFavorite = true;
+                            t.author = authorName;
+                            state.favoritePlaylist = [t, ...state.favoritePlaylist]
+                        }
+                        if (state.audioState.currentTrack.id === trackId) {
+                            state.audioState.currentTrack.isFavorite = true;
+                            state.audioState.currentTrack.author = authorName;
+                        }
+                    })
+                })
+            })
         },
         removeTrackFromFavoritePlaylist(state, action) {
             state.favoritePlaylist.forEach((t, index) => {
@@ -508,15 +511,18 @@ const mainSlice = createSlice({
                 }
             });
 
-            const allTracks = getAllTracks(state.mainData);
-            allTracks.forEach(t => {
-                if (t.id === action.payload) {
-                    t.isFavorite = false;
-                }
-                if (state.audioState.currentTrack.id === action.payload) {
-                    state.audioState.currentTrack.isFavorite = false;
-                }
-            });
+            state.mainData.forEach(author => {
+                author.albums.forEach(album => {
+                    album.tracks.forEach(t => {
+                        if (t.id === action.payload) {
+                            t.isFavorite = false;
+                        }
+                        if (state.audioState.currentTrack.id === action.payload) {
+                            state.audioState.currentTrack.isFavorite = false;
+                        }
+                    })
+                })
+            })
         },
     }
 });

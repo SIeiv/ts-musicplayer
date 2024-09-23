@@ -15,7 +15,7 @@ function FavoriteButton({trackEntity, author}: IProps) {
     let addTrackToFavorite = () => {
         dispatch(addTrackToFavoritePlaylist({
             trackId: trackEntity.id,
-            author
+            authorName: author
         }));
     }
     let removeTrackFromFavorite = () => {

@@ -11,7 +11,7 @@ import {
 } from "../../../redux/main.slice.ts";
 import {useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
-import {NewTrackType} from "../../../types/type.ts";
+import {AuthorType, NewTrackType} from "../../../types/type.ts";
 
 interface IProps {
     trackEntity: NewTrackType
@@ -45,7 +45,7 @@ const Track = ({trackEntity, author, queue}: IProps) => {
                         src: trackEntity.url,
                         track: trackEntity,
                         queue: queue,
-                        author
+                        author: author
                     }));
                     audioEntity.onended = () => {
                         dispatch(audioPlayNext())
@@ -85,7 +85,7 @@ const Track = ({trackEntity, author, queue}: IProps) => {
             </div>
             <div className={styles.track_right}>
                 <div className={styles.favorite}>
-                    <FavoriteButton trackEntity={trackEntity} author={author}/>
+                    <FavoriteButton trackEntity={trackEntity} author={trackEntity.author!}/>
                 </div>
                 <div className={styles.duration}>
                     <div>00:00</div>

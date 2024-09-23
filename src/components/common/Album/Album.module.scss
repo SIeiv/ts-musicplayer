@@ -20,6 +20,8 @@
     .overlay {
       position: absolute;
       display: flex;
+      cursor: pointer;
+      border-style: none;
       align-items: end;
       opacity: 0;
       transition: all;

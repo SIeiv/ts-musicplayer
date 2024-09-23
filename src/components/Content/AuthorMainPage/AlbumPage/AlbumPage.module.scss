@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  img {
+    width: 205px;
+    height: 205px;
+    border-radius: 5px;
+  }
+
+  .description {
+    margin: 25px;
+
+    * {
+      font-weight: bold;
+    }
+
+    .album {
+      color: #898989;
+    }
+    .albumName {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+    .author {
+      color: #898989;
+    }
+  }
+}

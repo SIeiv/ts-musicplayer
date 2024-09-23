@@ -15,6 +15,7 @@ import {IoMdVolumeHigh, IoMdVolumeOff} from "react-icons/io";
 import {LiaRandomSolid} from "react-icons/lia";
 import {LuRepeat, LuRepeat1} from "react-icons/lu";
 import FavoriteButton from "../common/FavoriteButton/FavoriteButton.tsx";
+import {NavLink} from "react-router-dom";
 
 const Player = () => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
@@ -81,10 +82,12 @@ const Player = () => {
                 </div>
                 <div className={styles.player_left_text}>
                     <div className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</div>
-                    <div className={styles.track_left_text_author}>{currentTrack.author ? currentTrack.author : "-"}</div>
+                    {!currentTrack.author
+                        ? <div className={styles.track_left_text_author}>-</div>
+                        : <NavLink to={`/${currentTrack.author.toLowerCase()}`} className={styles.track_left_text_author}>{currentTrack.author}</NavLink>}
                 </div>
                 <div className={styles.favoriteButton}>
-                    <FavoriteButton trackEntity={currentTrack}/>
+                    <FavoriteButton trackEntity={currentTrack} author={currentTrack.author!}/>
                 </div>
             </div>
             <div className={styles.player_center}>
