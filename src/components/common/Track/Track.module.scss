@@ -24,6 +24,8 @@
       width: 40px;
       height: 40px;
       border-radius: 5px;
+
+      position: absolute;
     }
 
     .track_left_icon {
@@ -31,6 +33,7 @@
       height: 40px;
       margin-inline: 7.5px;
       border-radius: 5px;
+      position: relative;
     }
 
 
@@ -71,8 +74,7 @@
 }
 
 .track_left_icon_pp {
-  position: relative;
-  top: -44px;
+  position: absolute;
   display: none;
   justify-content: center;
   align-items: center;
@@ -93,8 +95,7 @@
 }
 
 .track_left_icon_pp_mod {
-  position: relative;
-  top: -84px;
+  position: absolute;
   display: none;
   justify-content: center;
   align-items: center;
@@ -115,8 +116,7 @@
 }
 
 .track_left_icon_anim {
-  position: relative;
-  top: -44px;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,7 +124,7 @@
   height: 40px;
   border-radius: 5px;
   border-style: none;
-  background-color: rgba(58, 58, 58, 0.53);
+  background-color: rgba(0, 0, 0, 0.25);
 }
 
 .track:hover .track_left_icon_pp {

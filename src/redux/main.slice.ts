@@ -28,7 +28,7 @@ const initialState = {
         {
             name: "Серёга Пират", id: 2, avatar: DOMAIN + "serega-pirat/avatar.jpg", albums: [
                 {
-                    name: "Гимн Дахака", id: 1, cover: DOMAIN + "serega-pirat/albums/gimn-daxaka/cover.jpg", year: "2020",
+                    name: "Гимн Дахака", id: 3, cover: DOMAIN + "serega-pirat/albums/gimn-daxaka/cover.jpg", year: "2020",
                     isSingle: true, tracks: [
                         {
                             name: "Гимн Дахака", id: 1,
@@ -38,7 +38,7 @@ const initialState = {
                     ]
                 },
                 {
-                    name: "Невошедшее", id: 2, cover: DOMAIN + "serega-pirat/avatar.jpg", year: "2024",
+                    name: "Невошедшее", id: 4, cover: DOMAIN + "serega-pirat/avatar.jpg", year: "2024",
                     isSingle: false, tracks: [
                         {
                             name: "Гимн", id: 2,
@@ -83,7 +83,21 @@ const initialState = {
                     ]
                 },
             ]
-        }
+        },
+        {
+            name: "Даня Кашамалашова", id: 3, avatar: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", albums: [
+                {
+                    name: "Zalupa", id: 31, cover: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", tracks: [
+                        {
+                            name: "Артхаус",
+                            id: 311,
+                            url: DOMAIN + "cringe/IMG_0247.mp3",
+                            cover: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg"
+                        }
+                    ]
+                },
+            ]
+        },
     ] as Array<AuthorType>,
 
 
