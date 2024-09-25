@@ -1,0 +1,68 @@
+.main {
+  text-align: center;
+}
+
+.avatar {
+  width: 205px;
+  height: 205px;
+  position: relative;
+  display: flex;
+
+  .overlayButtons {
+    width: inherit;
+    height: inherit;
+  }
+
+  .overlay {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    border-radius: 205px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+
+    transition: opacity;
+    transition-duration: 0.2s;
+
+    * {
+      position: absolute;
+    }
+
+    .nav {
+      width: 205px;
+      height: 205px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  img {
+    position: absolute;
+    width: 205px;
+    height: 205px;
+    border-radius: 205px;
+  }
+}
+
+.content {
+  margin-top: 10px;
+
+  * {
+    font-weight: bold;
+  }
+
+  .authorName {
+    text-decoration: none;
+    color: #E6E6E6;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .defaultText {
+    color: #898989;
+  }
+}

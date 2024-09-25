@@ -317,7 +317,7 @@ export const {
     changeAudioVolume, audioPlayNext,
     audioPlayPrev, audioSwitchIsRepeating,
     audioSwitchIsRandom, myVibePlay, myVibeNext,
-    addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
+    addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist, addAuthorToFavorites,
 } = mainSlice.actions;
 export default mainSlice.reducer;
 

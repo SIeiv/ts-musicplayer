@@ -10,7 +10,7 @@ import Album from "../../common/Album/Album.tsx";
 import {Route, Routes} from "react-router-dom";
 import AuthorTracks from "./AuthorTracks/AuthorTracks.tsx";
 import FamiliarTracks from "./FamiliarTracks/FamiliarTracks.tsx";
-import {audioPlay} from "../../../redux/main.slice.ts";
+import {addAuthorToFavorites, audioPlay} from "../../../redux/main.slice.ts";
 import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
 import AlbumPage from "./AlbumPage/AlbumPage.tsx";
 
@@ -57,6 +57,10 @@ function AuthorMainPage({authorEntity}: IProps) {
         }))
     }
 
+    const authorToFavorites = () => {
+        dispatch(addAuthorToFavorites(authorEntity.id))
+    }
+
     let albumRoutes: Array<any> = [];
 
     authorEntity.albums.forEach(album => {
@@ -81,7 +85,7 @@ function AuthorMainPage({authorEntity}: IProps) {
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.authorPlay} onClick={onPlayClick}><FaPlay className={styles.icon}/>Слушать</button>
-                            <button>to_favorites</button>
+                            <button onClick={authorToFavorites}>to_favorites</button>
                         </div>
                     </div>
                 </div>

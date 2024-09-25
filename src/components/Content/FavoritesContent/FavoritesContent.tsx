@@ -6,6 +6,9 @@ import Collection from "../../common/Collection/Collection.tsx";
 import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
 import {Route, Routes} from "react-router-dom";
 import BackButton from "../../common/BackButton/BackButton.tsx";
+import {AiFillAccountBook} from "react-icons/ai";
+import Author from "../../common/Author/Author.tsx";
+import {AuthorType} from "../../../types/type.ts";
 
 function FavoritesContent() {
     const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
@@ -19,8 +22,8 @@ function FavoritesContent() {
         }
     });
 
-    let authors = favoriteAuthors.map((author, index) => {
-        return
+    let authors = favoriteAuthors.map((author: AuthorType, index) => {
+        return <Author authorName={author.name} authorAvatar={author.avatar}/>
     })
 
     return (
@@ -41,8 +44,8 @@ function FavoritesContent() {
                         </div>
                         <div className={styles.favoriteAuthors}>
                             <CustomNavLink text={"Любимые исполнители"} to={"authors"}/>
-                            <div>
-
+                            <div className={styles.authors}>
+                                {authors}
                             </div>
                         </div>
                     </div>
