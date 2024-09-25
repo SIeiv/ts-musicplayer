@@ -1,6 +1,7 @@
 import styles from "./AlbumPage.module.scss";
 import {AlbumType} from "../../../../types/type.ts";
 import Track from "../../../common/Track/Track.tsx";
+import BackButton from "../../../common/BackButton/BackButton.tsx";
 
 interface IProps {
     albumEntity: AlbumType
@@ -13,6 +14,9 @@ function AlbumPage({albumEntity, author}: IProps) {
 
     return (
         <div>
+            <div className={styles.backButton}>
+                <BackButton/>
+            </div>
             <div className={styles.header}>
                 <img src={albumEntity.cover} alt=""/>
                 <div className={styles.description}>

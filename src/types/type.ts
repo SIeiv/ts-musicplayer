@@ -13,8 +13,10 @@ export type NewTrackType = {
     url: string | null
     cover: string | null
     duration?: number | null
-    author?: string | null
     isFavorite?: boolean | null
+
+    author?: string
+    album?: string
 }
 
 export type AlbumType = {
@@ -31,4 +33,6 @@ export type AuthorType = {
     id: number
     avatar: string
     albums: Array<AlbumType>
+
+    isFavorite?: boolean
 }

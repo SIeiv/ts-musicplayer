@@ -81,7 +81,9 @@ const Player = () => {
                     <img src={currentTrack.cover ? currentTrack.cover : missingTitle} alt=""/>
                 </div>
                 <div className={styles.player_left_text}>
-                    <div className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</div>
+                    <div>
+                        <NavLink to={`/${currentTrack.author!.toLowerCase()}/${currentTrack.album!.toLowerCase()}`} className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</NavLink>
+                    </div>
                     {!currentTrack.author
                         ? <div className={styles.track_left_text_author}>-</div>
                         : <NavLink to={`/${currentTrack.author.toLowerCase()}`} className={styles.track_left_text_author}>{currentTrack.author}</NavLink>}

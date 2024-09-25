@@ -79,8 +79,9 @@ function AuthorMainPage({authorEntity}: IProps) {
                             <div className={styles.authorName}>{authorEntity.name}</div>
                             <div className={styles.listeners}>1488</div>
                         </div>
-                        <div>
+                        <div className={styles.buttons}>
                             <button className={styles.authorPlay} onClick={onPlayClick}><FaPlay className={styles.icon}/>Слушать</button>
+                            <button>to_favorites</button>
                         </div>
                     </div>
                 </div>

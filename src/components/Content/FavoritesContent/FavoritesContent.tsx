@@ -3,9 +3,13 @@ import {useAppSelector} from "../../../hooks.ts";
 import Track from "../../common/Track/Track.tsx";
 import favoritesCover from "../../../assets/playlist-cover_like.png";
 import Collection from "../../common/Collection/Collection.tsx";
+import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
+import {Route, Routes} from "react-router-dom";
+import BackButton from "../../common/BackButton/BackButton.tsx";
 
 function FavoritesContent() {
-    const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist)
+    const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
+    const favoriteAuthors = useAppSelector(state => state.main.favoriteAuthors);
 
     let queue = [];
     let tracks = favoriteTracks.map((t, index) => {
@@ -15,18 +19,35 @@ function FavoritesContent() {
         }
     });
 
+    let authors = favoriteAuthors.map((author, index) => {
+        return
+    })
+
     return (
         <div>
-            <div className={styles.title}>
-                Коллекция
-            </div>
-            <div className={styles.content}>
-                <Collection to={"/favorite_playlist"} text={"Мне нравится"}
-                            counter={tracks.length} counterName={"треков"} img={favoritesCover}/>
-                <div className={styles.tracksPreview}>
-                    {tracks}
-                </div>
-            </div>
+            <Routes>
+                <Route path={"authors"} element={<div><BackButton/></div>}/>
+                <Route path={""} element={<div>
+                    <div className={styles.title}>
+                        Коллекция
+                    </div>
+                    <div className={styles.content}>
+                        <div>
+                            <Collection to={"/favorite_playlist"} text={"Мне нравится"}
+                                        counter={tracks.length} counterName={"треков"} img={favoritesCover}/>
+                            <div className={styles.tracksPreview}>
+                                {tracks}
+                            </div>
+                        </div>
+                        <div className={styles.favoriteAuthors}>
+                            <CustomNavLink text={"Любимые исполнители"} to={"authors"}/>
+                            <div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>}/>
+            </Routes>
         </div>
     );
 }

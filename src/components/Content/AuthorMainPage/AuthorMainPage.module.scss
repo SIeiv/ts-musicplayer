@@ -12,6 +12,14 @@
     flex-direction: column;
     justify-content: space-between;
 
+    .buttons {
+      display: flex;
+
+      * {
+        margin-right: 10px;
+      }
+    }
+
     * {
       font-weight: bold;
     }

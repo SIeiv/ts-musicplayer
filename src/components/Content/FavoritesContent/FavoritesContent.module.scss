@@ -17,4 +17,15 @@
 
 .content {
   margin-block: 20px;
+
+  >* {
+    margin-block: 10px;
+  }
+
+  .favoriteAuthors {
+
+    * {
+      justify-content: start;
+    }
+  }
 }
