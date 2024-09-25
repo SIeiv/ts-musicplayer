@@ -1,0 +1,21 @@
+.main {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.player_center_buttons_play {
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+
+  * {
+    min-width: 48px;
+    min-height: 48px;
+    color: #E6E6E6;
+  }
+}
+

@@ -10,9 +10,11 @@ import Album from "../../common/Album/Album.tsx";
 import {Route, Routes} from "react-router-dom";
 import AuthorTracks from "./AuthorTracks/AuthorTracks.tsx";
 import FamiliarTracks from "./FamiliarTracks/FamiliarTracks.tsx";
-import {addAuthorToFavorites, audioPlay} from "../../../redux/main.slice.ts";
+import {addAuthorToFavorites, audioPlay, removeAuthorFromFavorites} from "../../../redux/main.slice.ts";
 import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
 import AlbumPage from "./AlbumPage/AlbumPage.tsx";
+import RoundButton from "../../common/RoundButton/RoundButton.tsx";
+import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
 
 interface IProps {
     authorEntity: AuthorType
@@ -60,6 +62,9 @@ function AuthorMainPage({authorEntity}: IProps) {
     const authorToFavorites = () => {
         dispatch(addAuthorToFavorites(authorEntity.id))
     }
+    const removeFromFavorites = () => {
+        dispatch(removeAuthorFromFavorites(authorEntity.id))
+    }
 
     let albumRoutes: Array<any> = [];
 
@@ -85,7 +90,12 @@ function AuthorMainPage({authorEntity}: IProps) {
                         </div>
                         <div className={styles.buttons}>
                             <button className={styles.authorPlay} onClick={onPlayClick}><FaPlay className={styles.icon}/>Слушать</button>
-                            <button onClick={authorToFavorites}>to_favorites</button>
+                            <div className={styles.favoriteButton}>
+                                {authorEntity.isFavorite
+                                        ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
+                                        : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

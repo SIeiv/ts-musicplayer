@@ -1,30 +1,47 @@
 import styles from "./Author.module.scss";
 import {NavLink} from "react-router-dom";
+import PlayButton from "../PlayButton/PlayButton.tsx";
+import {AuthorType} from "../../../types/type.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
+import RoundButton from "../RoundButton/RoundButton.tsx";
+import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
+import {addAuthorToFavorites, removeAuthorFromFavorites} from "../../../redux/main.slice.ts";
 
 interface IProps {
-    authorName: string
-    authorAvatar: string
+    authorEntity: AuthorType
 }
 
-function Author({authorName, authorAvatar}: IProps) {
+function Author({authorEntity}: IProps) {
+    const audioState = useAppSelector(state => state.main.audioState);
+    const dispatch = useAppDispatch();
+
+    let isPlaying = authorEntity.name === audioState.currentTrack.author && audioState.isPlaying;
+    const authorToFavorites = () => {
+        dispatch(addAuthorToFavorites(authorEntity.id))
+    }
+    const removeFromFavorites = () => {
+        dispatch(removeAuthorFromFavorites(authorEntity.id))
+    }
+
     return (
         <div className={styles.main}>
             <div className={styles.avatar}>
-                <img src={authorAvatar} alt=""/>
-                <div className={styles.overlay}>
-                    <NavLink to={`/${authorName.toLowerCase()}`} className={styles.nav}>
-                        авролвадр
-                    </NavLink>
-                    <div className={styles.overlayButtons}>
-                        <button>play</button>
-                        <button>pin</button>
-                        <button>to_favorites</button>
+                <img src={authorEntity.avatar} alt=""/>
+                <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.nav}/>
+                <div className={styles.buttons}>
+                    <PlayButton requirement={isPlaying}/>
+                    <button>pin</button>
+                    <div className={styles.button}>
+                        {authorEntity.isFavorite
+                            ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
+                            : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
+                        }
                     </div>
                 </div>
             </div>
             <div className={styles.content}>
-                <NavLink to={`/${authorName.toLowerCase()}`} className={styles.authorName}>
-                    {authorName}
+                <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.authorName}>
+                    {authorEntity.name}
                 </NavLink>
                 <div className={styles.defaultText}>
                     Исполнитель

@@ -1,12 +1,10 @@
 import styles from "./Player.module.scss"
 import missingTitle from "../../assets/Missing_Tile_BE3.png";
 import {useAppDispatch, useAppSelector} from "../../hooks.ts";
-import {MdSkipNext, MdSkipPrevious, MdOutlinePlayCircleFilled, MdOutlinePauseCircleFilled} from "react-icons/md";
+import {MdSkipNext, MdSkipPrevious} from "react-icons/md";
 import {
-    audioPause,
     audioPlayNext,
-    audioPlayPrev,
-    audioResume, audioSwitchIsRandom, audioSwitchIsRepeating,
+    audioPlayPrev, audioSwitchIsRandom, audioSwitchIsRepeating,
     changeAudioVolume, myVibeNext,
     onScrollChange
 } from "../../redux/main.slice.ts";
@@ -16,6 +14,7 @@ import {LiaRandomSolid} from "react-icons/lia";
 import {LuRepeat, LuRepeat1} from "react-icons/lu";
 import FavoriteButton from "../common/FavoriteButton/FavoriteButton.tsx";
 import {NavLink} from "react-router-dom";
+import PlayButton from "../common/PlayButton/PlayButton.tsx";
 
 const Player = () => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
@@ -99,13 +98,7 @@ const Player = () => {
                         {isRepeating === 2 ? <LuRepeat1 /> : <LuRepeat />}
                     </button>
                     <button className={styles.prev} onClick={() => {dispatch(audioPlayPrev())}}><MdSkipPrevious/></button>
-                    {isPlaying || isMyVibePlaying
-                        ? <button onClick={() => {
-                            dispatch(audioPause())
-                        }} className={styles.player_center_buttons_play}><MdOutlinePauseCircleFilled/></button>
-                        : <button onClick={() => {
-                            dispatch(audioResume())
-                        }} className={styles.player_center_buttons_play}><MdOutlinePlayCircleFilled/></button>}
+                    <PlayButton requirement={isPlaying || isMyVibePlaying}/>
                     <button className={styles.next} onClick={() => {
                         if (isPlaying) {
                             dispatch(audioPlayNext());

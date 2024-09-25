@@ -22,8 +22,8 @@ function FavoritesContent() {
         }
     });
 
-    let authors = favoriteAuthors.map((author: AuthorType, index) => {
-        return <Author authorName={author.name} authorAvatar={author.avatar}/>
+    let authors = favoriteAuthors.map((author: AuthorType) => {
+        return <Author authorEntity={author}/>
     })
 
     return (

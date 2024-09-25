@@ -307,6 +307,19 @@ const mainSlice = createSlice({
                     state.favoriteAuthors = [author, ...state.favoriteAuthors]
                 }
             })
+        },
+        removeAuthorFromFavorites(state, action) {
+            state.favoriteAuthors.forEach((author, index) => {
+                if (author.id === action.payload) {
+                    state.favoriteAuthors.splice(index, 1);
+                }
+            })
+
+            state.mainData.forEach(author => {
+                if (author.id === action.payload) {
+                    author.isFavorite = false;
+                }
+            })
         }
     }
 });
@@ -317,7 +330,8 @@ export const {
     changeAudioVolume, audioPlayNext,
     audioPlayPrev, audioSwitchIsRepeating,
     audioSwitchIsRandom, myVibePlay, myVibeNext,
-    addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist, addAuthorToFavorites,
+    addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
+    addAuthorToFavorites, removeAuthorFromFavorites
 } = mainSlice.actions;
 export default mainSlice.reducer;
 
