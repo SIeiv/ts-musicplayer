@@ -4,7 +4,7 @@ import PlayButton from "../PlayButton/PlayButton.tsx";
 import {AuthorType} from "../../../types/type.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import RoundButton from "../RoundButton/RoundButton.tsx";
-import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
+import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin} from "react-icons/md";
 import {addAuthorToFavorites, removeAuthorFromFavorites} from "../../../redux/main.slice.ts";
 
 interface IProps {
@@ -30,7 +30,9 @@ function Author({authorEntity}: IProps) {
                 <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.nav}/>
                 <div className={styles.buttons}>
                     <PlayButton requirement={isPlaying}/>
-                    <button>pin</button>
+                    <div className={styles.button}>
+                        <RoundButton onClick={() => {}} icon={<MdOutlinePushPin />}/>
+                    </div>
                     <div className={styles.button}>
                         {authorEntity.isFavorite
                             ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
