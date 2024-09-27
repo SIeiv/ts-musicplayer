@@ -228,8 +228,9 @@ const mainSlice = createSlice({
             audioState.isRandom = !audioState.isRandom;
         },
 
-        myVibePlay({audioState, allTracks}) {
-            audioState.currentQueue = allTracks;
+        //broken
+        myVibePlay({audioState,}) {
+            //audioState.currentQueue = allTracks;
             audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
             audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
             audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;

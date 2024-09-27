@@ -6,7 +6,6 @@ import Collection from "../../common/Collection/Collection.tsx";
 import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
 import {Route, Routes} from "react-router-dom";
 import BackButton from "../../common/BackButton/BackButton.tsx";
-import {AiFillAccountBook} from "react-icons/ai";
 import Author from "../../common/Author/Author.tsx";
 import {AuthorType} from "../../../types/type.ts";
 
@@ -18,7 +17,7 @@ function FavoritesContent() {
     let tracks = favoriteTracks.map((t, index) => {
         if (index <= 7) {
             queue.push(t);
-            return <Track trackEntity={t} queue={queue} author={t.author}/>
+            return <Track trackEntity={t} queue={queue} author={t.author!}/>
         }
     });
 

@@ -12,14 +12,17 @@ import {
 import {useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
 import {AuthorType, NewTrackType} from "../../../types/type.ts";
+import {NavLink} from "react-router-dom";
 
 interface IProps {
     trackEntity: NewTrackType
     author: string
     queue: any[]
+    type?: "default" | "numeric"
+    num?: number
 }
 
-const Track = ({trackEntity, author, queue}: IProps) => {
+const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     const dispatch = useAppDispatch();
     const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
     const audioEntity = useAppSelector(state => state.main.audioState.source);
@@ -68,19 +71,28 @@ const Track = ({trackEntity, author, queue}: IProps) => {
         }
     }
 
-
-
     return (
         <div className={styles.track}>
             <div className={styles.track_left}>
                 <div className={styles.track_left_icon}>
-                    <img src={trackEntity.cover ? trackEntity.cover : missingTitle} alt=""/>
+                    {type === "default"
+                        ? <img className={styles.img} src={trackEntity.cover ? trackEntity.cover : missingTitle} alt=""/>
+                        : <div className={styles.img}>{num}</div>
+                    }
                     {isPlayingAnimation()}
                     {btnControl()}
                 </div>
                 <div className={styles.track_left_text}>
-                    <div className={styles.track_left_text_name}>{trackEntity.name}</div>
-                    <div>{author}</div>
+                    <div>
+                        <div className={styles.track_left_text_name}>{trackEntity.name}</div>
+                    </div>
+                    <div>
+                        {type === "default"
+                            && <NavLink className={styles.track_left_text_author}
+                                       to={`/${trackEntity.author?.toLowerCase()}`}>{author}</NavLink>
+                        }
+
+                    </div>
                 </div>
             </div>
             <div className={styles.track_right}>

@@ -10,7 +10,8 @@ interface IProps {
 
 function AlbumPage({albumEntity, author}: IProps) {
 
-    const trackEls = albumEntity.tracks.map(t => <Track trackEntity={t} author={author} queue={albumEntity.tracks}/>)
+    const trackEls = albumEntity.tracks.map((t, index) => <Track trackEntity={t} author={author}
+                                                        queue={albumEntity.tracks} type={"numeric"} num={index + 1}/>)
 
     return (
         <div>
@@ -26,7 +27,7 @@ function AlbumPage({albumEntity, author}: IProps) {
                         <div className={styles.author}>{author} - {albumEntity.year}</div>
                     </div>
                     <div>
-                        
+
                     </div>
                 </div>
             </div>
