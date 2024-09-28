@@ -10,11 +10,17 @@ import Album from "../../common/Album/Album.tsx";
 import {Route, Routes} from "react-router-dom";
 import AuthorTracks from "./AuthorTracks/AuthorTracks.tsx";
 import FamiliarTracks from "./FamiliarTracks/FamiliarTracks.tsx";
-import {addAuthorToFavorites, audioPlay, removeAuthorFromFavorites} from "../../../redux/main.slice.ts";
+import {
+    addAuthorToFavorites,
+    addPin,
+    audioPlay,
+    deletePin,
+    removeAuthorFromFavorites
+} from "../../../redux/main.slice.ts";
 import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
 import AlbumPage from "./AlbumPage/AlbumPage.tsx";
 import RoundButton from "../../common/RoundButton/RoundButton.tsx";
-import {MdFavorite, MdFavoriteBorder} from "react-icons/md";
+import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin, MdPushPin} from "react-icons/md";
 
 interface IProps {
     authorEntity: AuthorType
@@ -57,14 +63,29 @@ function AuthorMainPage({authorEntity}: IProps) {
             track: authorTracks[0],
             queue: authorTracks
         }))
-    }
+    };
 
     const authorToFavorites = () => {
         dispatch(addAuthorToFavorites(authorEntity.id))
-    }
+    };
     const removeFromFavorites = () => {
         dispatch(removeAuthorFromFavorites(authorEntity.id))
-    }
+    };
+
+    const onAPinClick = () => {
+        dispatch(addPin({
+            cover: authorEntity.avatar,
+            name: authorEntity.name,
+            type: "author",
+            id: authorEntity.id
+        }))
+    };
+    const onDPinClick = () => {
+        dispatch(deletePin({
+            id: authorEntity.id,
+            type: "author"
+        }))
+    };
 
     let albumRoutes: Array<any> = [];
 
@@ -94,6 +115,12 @@ function AuthorMainPage({authorEntity}: IProps) {
                                 {authorEntity.isFavorite
                                         ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
                                         : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
+                                }
+                            </div>
+                            <div className={styles.favoriteButton}>
+                                {authorEntity.isPinned
+                                    ? <RoundButton onClick={onDPinClick} icon={<MdPushPin />}/>
+                                    : <RoundButton onClick={onAPinClick} icon={<MdOutlinePushPin />}/>
                                 }
                             </div>
                         </div>

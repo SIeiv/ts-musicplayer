@@ -2,6 +2,19 @@
   text-align: center;
 }
 
+.playButton{
+  background-color: transparent;
+  border-style: none;
+  color: #E6E6E6;
+
+  * {
+    width: 40px;
+    height: 40px;
+  }
+
+
+}
+
 .avatar {
   width: 205px;
   height: 205px;
@@ -22,9 +35,15 @@
     .button {
       width: 40px;
       height: 40px;
+      margin-left: 5px;
 
-      * {
+      >* {
         justify-content: center;
+        background-color: #171717;
+        
+        &:hover {
+          background-color: #313131;
+        }
       }
 
     }

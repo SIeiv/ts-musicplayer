@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {AuthorType, NewTrackType, TrackType} from "../types/type.ts";
+import {AuthorType, NewTrackType, PinType} from "../types/type.ts";
 
 const DOMAIN = 'http://f1003580.xsph.ru/';
 
@@ -83,7 +83,7 @@ const initialState = {
                 },
             ]
         },
-        {
+        /*{
             name: "Даня Кашамалашова", avatar: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", albums: [
                 {
                     name: "Zalupa", id: 31, cover: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", tracks: [
@@ -96,7 +96,7 @@ const initialState = {
                     ]
                 },
             ]
-        },
+        },*/
     ] as Array<AuthorType>,
 
     audioState: {
@@ -119,22 +119,28 @@ const initialState = {
     },
 
     favoritePlaylist: [] as Array<NewTrackType>,
-    favoriteAuthors: [] as Array<AuthorType>
+    favoritePlaylistIsPinned: false,
+    favoriteAuthors: [] as Array<AuthorType>,
+
+    pins: [] as Array<PinType>
 }
 
 
 //initialize
 initialState.audioState.source.volume = 0.2;
 
-let authorIdController = 1;
+/*let authorIdController = 1;
 let albumIdController = 1;
-let trackIdController = 1;
+let trackIdController = 1;*/
+
+let mainIdController = 1;
+
 initialState.mainData.forEach(author => {
-    author.id = authorIdController++;
+    author.id = mainIdController++;
     author.albums.forEach(album => {
-        album.id = albumIdController++;
+        album.id = mainIdController++;
         album.tracks.forEach(track => {
-            track.id = trackIdController++;
+            track.id = mainIdController++;
             track.author = author.name;
             track.album = album.name;
         })
@@ -237,7 +243,6 @@ const mainSlice = createSlice({
             audioState.source.play();
             audioState.isMyVibePlaying = true;
         },
-
         myVibeNext({audioState}) {
             audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
             audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
@@ -245,7 +250,6 @@ const mainSlice = createSlice({
             audioState.source.play();
             audioState.isMyVibePlaying = true;
         },
-
         myVibePause({audioState}) {
             audioState.source.pause();
             audioState.isMyVibePlaying = false;
@@ -321,6 +325,42 @@ const mainSlice = createSlice({
                     author.isFavorite = false;
                 }
             })
+        },
+
+        addPin(state, {payload: {cover, name, type, id}}) {
+            let newPin: PinType = {id, cover, name, type};
+            state.pins = [newPin, ...state.pins];
+
+            if (type === "author"){
+                state.mainData.forEach(author => {
+                    if (author.id === id) {
+                        author.isPinned = true;
+                    }
+                })
+            } else if (type === "playlist") {
+                state.favoritePlaylistIsPinned = true;
+            }
+
+
+        },
+        deletePin(state, {payload: {type, id}}) {
+            state.pins.forEach((pin, index) => {
+                if (pin.id === id) {
+                    state.pins.splice(index, 1);
+                }
+            });
+
+            if (type === "author"){
+                state.mainData.forEach(author => {
+                    if (author.id === id) {
+                        author.isPinned = false;
+                    }
+                })
+            } else if (type === "playlist") {
+                state.favoritePlaylistIsPinned = false;
+            }
+
+
         }
     }
 });
@@ -332,7 +372,8 @@ export const {
     audioPlayPrev, audioSwitchIsRepeating,
     audioSwitchIsRandom, myVibePlay, myVibeNext,
     addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
-    addAuthorToFavorites, removeAuthorFromFavorites
+    addAuthorToFavorites, removeAuthorFromFavorites,
+    addPin, deletePin
 } = mainSlice.actions;
 export default mainSlice.reducer;
 

@@ -2,21 +2,26 @@ import styles from "./NavBar.module.scss";
 import NavBarButton from "./NavBarButton.tsx";
 import {CgSearch} from "react-icons/cg";
 import {PiMusicNotesBold} from "react-icons/pi";
-import {MdFavorite, MdOutlinePodcasts} from "react-icons/md";
-//import NavBarPinnedPlaylist from "./NavBarPinnedPlaylist.tsx";
+import {MdFavorite} from "react-icons/md";
+import PinnedItem from "./PinnedItem/PinnedItem.tsx";
+import {useAppSelector} from "../../hooks.ts";
 
-const NavBar = () => (
-    <div className={styles.navbar}>
-        <div className={styles.buttons}>
-            <NavBarButton name={"Поиск"} to={"/search"} icon={<CgSearch/>}/>
-            <NavBarButton name={"Главная"} to={"/main/fy"} icon={<PiMusicNotesBold />}/>
-            <NavBarButton name={"Подкасты"} to={"/podcasts"} icon={<MdOutlinePodcasts />}/>
-            <NavBarButton name={"Коллекция"} to={"/favorites"} icon={<MdFavorite />}/>
+const NavBar = () => {
+    const pins = useAppSelector(state => state.main.pins)
+
+    const pinEls = pins.map(p => <PinnedItem cover={p.cover} name={p.name} type={p.type}/>)
+
+    return (<div className={styles.navbar}>
+            <div className={styles.buttons}>
+                <NavBarButton name={"Поиск"} to={"/search"} icon={<CgSearch/>}/>
+                <NavBarButton name={"Главная"} to={"/main/fy"} icon={<PiMusicNotesBold/>}/>
+                <NavBarButton name={"Коллекция"} to={"/favorites"} icon={<MdFavorite/>}/>
+            </div>
+            <div className={styles.pins}>
+                {pinEls}
+            </div>
         </div>
-        <div className={styles.pins}>
-            {/*<NavBarPinnedPlaylist name={"Мне нравится"} to={"/"} cover={""}/>*/}
-        </div>
-    </div>
-);
+    )
+};
 
 export default NavBar;

@@ -22,7 +22,7 @@ function FavoritesContent() {
     });
 
     let authors = favoriteAuthors.map((author: AuthorType) => {
-        return <Author authorEntity={author}/>
+        return <div className={styles.author}><Author authorEntity={author}/></div>
     })
 
     return (
@@ -35,7 +35,7 @@ function FavoritesContent() {
                     </div>
                     <div className={styles.content}>
                         <div>
-                            <Collection to={"/favorite_playlist"} text={"Мне нравится"}
+                            <Collection to={"/мне нравится"} text={"Мне нравится"}
                                         counter={tracks.length} counterName={"треков"} img={favoritesCover}/>
                             <div className={styles.tracksPreview}>
                                 {tracks}

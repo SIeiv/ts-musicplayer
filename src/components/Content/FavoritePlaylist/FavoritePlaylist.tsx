@@ -2,18 +2,21 @@ import favoritesCover from "../../../assets/playlist-cover_like.png";
 import styles from "./FavoritePlaylist.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import Track from "../../common/Track/Track.tsx";
-import {audioPlay} from "../../../redux/main.slice.ts";
-import {TrackType} from "../../../types/type.ts";
+import {addPin, audioPlay, deletePin} from "../../../redux/main.slice.ts";
+import {NewTrackType} from "../../../types/type.ts";
 import {FaPlay} from "react-icons/fa";
 import SearchField from "../../common/SearchField/SearchField.tsx";
 import {useState} from "react";
 import SearchNotFound from "../../common/SearchNotFound/SearchNotFound.tsx";
+import RoundButton from "../../common/RoundButton/RoundButton.tsx";
+import {MdOutlinePushPin, MdPushPin} from "react-icons/md";
 
 function FavoritePlaylist() {
-    const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist)
+    const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
+    const favoritesIsPinned = useAppSelector(state => state.main.favoritePlaylistIsPinned)
     const dispatch = useAppDispatch();
 
-    let queue: Array<TrackType> = [];
+    let queue: Array<NewTrackType> = [];
 
     const [searchInput, setSearchInput] = useState("");
 
@@ -30,10 +33,10 @@ function FavoritePlaylist() {
     favoriteTracks.forEach((t) => {
         if (searchInput === "") {
             queue.push(t);
-            tracks.push(<Track classname={styles.track} trackEntity={t} queue={queue}/>);
+            tracks.push(<Track trackEntity={t} queue={queue} author={t.author!}/>);
         } else if ((t.name!.toLowerCase().includes(searchInput.toLowerCase()) && searchInput !== "")) {
             queue.push(t);
-            tracks.push(<Track classname={styles.track} trackEntity={t} queue={queue}/>);
+            tracks.push(<Track trackEntity={t} queue={queue} author={t.author!}/>);
         }
 
     });
@@ -42,6 +45,20 @@ function FavoritePlaylist() {
         setSearchInput(e.target.value);
 
     }
+    const onAPinClick = () => {
+        dispatch(addPin({
+            cover: favoritesCover,
+            name: "Мне нравится",
+            type: "playlist",
+            id: 0
+        }))
+    };
+    const onDPinClick = () => {
+        dispatch(deletePin({
+            id: 0,
+            type: "playlist",
+        }));
+    };
 
     return (
         <div>
@@ -53,13 +70,20 @@ function FavoritePlaylist() {
                         <div className={styles.playlistTitle}>Мне нравится</div>
                         <div className={styles.playlistAuthor}>local_user</div>
                     </div>
-                    <div>
+                    <div className={styles.buttons}>
                         <button className={styles.playlistPlay} onClick={() => {
                             dispatch(audioPlay({
                                 src: queue[0].url,
                                 track: queue[0],
                                 queue: queue}))
                         }}><FaPlay className={styles.icon}/>Слушать</button>
+                        <div className={styles.pin}>
+                            {favoritesIsPinned
+                                ? <RoundButton onClick={onDPinClick} icon={<MdPushPin />}/>
+                                : <RoundButton onClick={onAPinClick} icon={<MdOutlinePushPin />}/>
+                            }
+                        </div>
+
                     </div>
                 </div>
             </div>

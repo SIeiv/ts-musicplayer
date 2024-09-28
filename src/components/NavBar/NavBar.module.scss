@@ -21,8 +21,11 @@
     margin: 5px;
     padding: 10px;
 
-    :hover {
+    transition: color;
+    transition-duration: 0.2s;
 
+    &:hover {
+      color: #E6E6E6;
     }
 
     .icon {

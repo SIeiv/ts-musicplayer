@@ -35,4 +35,12 @@ export type AuthorType = {
     albums: Array<AlbumType>
 
     isFavorite?: boolean
+    isPinned?: boolean
+}
+
+export type PinType = {
+    id: number
+    cover: string
+    name: string
+    type: "author" | "album" | "playlist" | "single"
 }

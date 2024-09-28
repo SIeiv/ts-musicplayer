@@ -1,26 +1,93 @@
 import styles from "./Author.module.scss";
 import {NavLink} from "react-router-dom";
-import PlayButton from "../PlayButton/PlayButton.tsx";
-import {AuthorType} from "../../../types/type.ts";
+import {AuthorType, NewTrackType} from "../../../types/type.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import RoundButton from "../RoundButton/RoundButton.tsx";
-import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin} from "react-icons/md";
-import {addAuthorToFavorites, removeAuthorFromFavorites} from "../../../redux/main.slice.ts";
+import {
+    MdFavorite,
+    MdFavoriteBorder,
+    MdOutlinePauseCircleFilled,
+    MdOutlinePlayCircleFilled,
+    MdOutlinePushPin, MdPushPin
+} from "react-icons/md";
+import {
+    addAuthorToFavorites, addPin,
+    audioPause,
+    audioPlay, audioPlayNext,
+    audioResume, deletePin,
+    removeAuthorFromFavorites
+} from "../../../redux/main.slice.ts";
+import {useState} from "react";
 
 interface IProps {
     authorEntity: AuthorType
 }
 
 function Author({authorEntity}: IProps) {
-    const audioState = useAppSelector(state => state.main.audioState);
+    const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
+    const audioEntity = useAppSelector(state => state.main.audioState.source);
     const dispatch = useAppDispatch();
-
-    let isPlaying = authorEntity.name === audioState.currentTrack.author && audioState.isPlaying;
     const authorToFavorites = () => {
         dispatch(addAuthorToFavorites(authorEntity.id))
     }
     const removeFromFavorites = () => {
         dispatch(removeAuthorFromFavorites(authorEntity.id))
+    }
+
+    const [isTouched, setIsTouched] = useState(false);
+
+    let queue: Array<NewTrackType> = [];
+
+    authorEntity.albums.forEach(album => {
+        album.tracks.forEach(track => {
+            queue.push(track);
+        })
+    })
+
+    const onAPinClick = () => {
+        dispatch(addPin({
+            cover: authorEntity.avatar,
+            name: authorEntity.name,
+            type: "author",
+            id: authorEntity.id
+        }))
+    };
+    const onDPinClick = () => {
+        dispatch(deletePin({
+            id: authorEntity.id,
+            type: "author"
+        }))
+    };
+
+    let btnControl = () => {
+        if (isAudioPlaying) {
+            return (
+                <button onClick={() => {
+                    dispatch(audioPause());
+                }} className={styles.playButton}>
+                    <MdOutlinePauseCircleFilled/>
+                </button>
+            );
+        }
+        return (
+            <button onClick={() => {
+                if (isTouched) {
+                    dispatch(audioResume());
+                } else {
+                    dispatch(audioPlay({
+                        src: authorEntity.albums[0].tracks[0].url,
+                        track: authorEntity.albums[0].tracks[0],
+                        queue: queue,
+                    }));
+                    audioEntity.onended = () => {
+                        dispatch(audioPlayNext())
+                    };
+                    setIsTouched(true);
+                }
+            }} className={styles.playButton}>
+                <MdOutlinePlayCircleFilled/>
+            </button>
+        );
     }
 
     return (
@@ -29,9 +96,12 @@ function Author({authorEntity}: IProps) {
                 <img src={authorEntity.avatar} alt=""/>
                 <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.nav}/>
                 <div className={styles.buttons}>
-                    <PlayButton requirement={isPlaying}/>
+                    {btnControl()}
                     <div className={styles.button}>
-                        <RoundButton onClick={() => {}} icon={<MdOutlinePushPin />}/>
+                        {authorEntity.isPinned
+                            ? <RoundButton onClick={onDPinClick} icon={<MdPushPin />}/>
+                            : <RoundButton onClick={onAPinClick} icon={<MdOutlinePushPin />}/>
+                        }
                     </div>
                     <div className={styles.button}>
                         {authorEntity.isFavorite

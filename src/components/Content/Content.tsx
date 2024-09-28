@@ -6,7 +6,6 @@ import FavoritesContent from "./FavoritesContent/FavoritesContent.tsx";
 import FavoritePlaylist from "./FavoritePlaylist/FavoritePlaylist.tsx";
 import {useAppSelector} from "../../hooks.ts";
 import AuthorMainPage from "./AuthorMainPage/AuthorMainPage.tsx";
-import BackButton from "../common/BackButton/BackButton.tsx";
 
 const Content = () => {
     const data = useAppSelector(state => state.main.mainData);
@@ -42,7 +41,7 @@ const Content = () => {
                     <Route path={"/favorites"} element={<FavoritesContent/>}>
                         <Route path={"authors"}/>
                     </Route>
-                    <Route path={"/favorite_playlist"} element={<FavoritePlaylist/>}/>
+                    <Route path={"/мне нравится"} element={<FavoritePlaylist/>}/>
                     {routes}
                 </Routes>
             </div>
