@@ -1,3 +1,15 @@
+.playButton{
+  background-color: transparent;
+  border-style: none;
+  color: #E6E6E6;
+
+  * {
+    width: 40px;
+    height: 40px;
+  }
+
+}
+
 .wrapper {
 
   margin-right: 20px;
@@ -6,9 +18,26 @@
     width: 215px;
     height: 215px;
     position: relative;
+    display: flex;
+    flex-direction: column-reverse;
 
-    * {
+    img {
       border-radius: 5px;
+    }
+
+    .buttons {
+      position: absolute;
+    }
+
+    &:hover {
+      .nav {
+        opacity: 1;
+      }
+      .buttons {
+        * {
+          opacity: 1;
+        }
+      }
     }
 
     img {

@@ -5,18 +5,14 @@ import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import RoundButton from "../RoundButton/RoundButton.tsx";
 import {
     MdFavorite,
-    MdFavoriteBorder,
-    MdOutlinePauseCircleFilled,
-    MdOutlinePlayCircleFilled,
+    MdFavoriteBorder, MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled,
     MdOutlinePushPin, MdPushPin
 } from "react-icons/md";
 import {
-    addAuthorToFavorites, addPin,
-    audioPause,
-    audioPlay, audioPlayNext,
-    audioResume, deletePin,
+    addAuthorToFavorites, addPin, audioPause, audioPlay, audioPlayNext, audioResume, deletePin,
     removeAuthorFromFavorites
 } from "../../../redux/main.slice.ts";
+import ItemOverlay from "../ItemOverlay/ItemOverlay.tsx";
 import {useState} from "react";
 
 interface IProps {
@@ -24,17 +20,16 @@ interface IProps {
 }
 
 function Author({authorEntity}: IProps) {
+    const dispatch = useAppDispatch();
+    const [isTouched, setIsTouched] = useState(false);
     const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
     const audioEntity = useAppSelector(state => state.main.audioState.source);
-    const dispatch = useAppDispatch();
     const authorToFavorites = () => {
         dispatch(addAuthorToFavorites(authorEntity.id))
     }
     const removeFromFavorites = () => {
         dispatch(removeAuthorFromFavorites(authorEntity.id))
     }
-
-    const [isTouched, setIsTouched] = useState(false);
 
     let queue: Array<NewTrackType> = [];
 
@@ -43,21 +38,6 @@ function Author({authorEntity}: IProps) {
             queue.push(track);
         })
     })
-
-    const onAPinClick = () => {
-        dispatch(addPin({
-            cover: authorEntity.avatar,
-            name: authorEntity.name,
-            type: "author",
-            id: authorEntity.id
-        }))
-    };
-    const onDPinClick = () => {
-        dispatch(deletePin({
-            id: authorEntity.id,
-            type: "author"
-        }))
-    };
 
     let btnControl = () => {
         if (isAudioPlaying) {
@@ -90,26 +70,31 @@ function Author({authorEntity}: IProps) {
         );
     }
 
+    const onAPinClick = () => {
+        dispatch(addPin({
+            cover: authorEntity.avatar,
+            name: authorEntity.name,
+            type: "author",
+            id: authorEntity.id
+        }))
+    };
+    const onDPinClick = () => {
+        dispatch(deletePin({
+            id: authorEntity.id,
+            type: "author"
+        }))
+    };
+
     return (
         <div className={styles.main}>
             <div className={styles.avatar}>
                 <img src={authorEntity.avatar} alt=""/>
                 <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.nav}/>
                 <div className={styles.buttons}>
-                    {btnControl()}
-                    <div className={styles.button}>
-                        {authorEntity.isPinned
-                            ? <RoundButton onClick={onDPinClick} icon={<MdPushPin />}/>
-                            : <RoundButton onClick={onAPinClick} icon={<MdOutlinePushPin />}/>
-                        }
-                    </div>
-                    <div className={styles.button}>
-                        {authorEntity.isFavorite
-                            ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
-                            : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
-                        }
-                    </div>
+                    <ItemOverlay onAPinClick={onAPinClick} onDPinClick={onDPinClick} btnControl={btnControl} objectEntity={authorEntity}
+                                 addToFavorites={authorToFavorites} removeFromFavorites={removeFromFavorites}/>
                 </div>
+
             </div>
             <div className={styles.content}>
                 <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.authorName}>

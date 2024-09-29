@@ -40,6 +40,7 @@ const Content = () => {
                     <Route path={"/podcasts"} element={<MainContent/>}/>
                     <Route path={"/favorites"} element={<FavoritesContent/>}>
                         <Route path={"authors"}/>
+                        <Route path={"albums"}/>
                     </Route>
                     <Route path={"/мне нравится"} element={<FavoritePlaylist/>}/>
                     {routes}

@@ -26,6 +26,9 @@ export type AlbumType = {
     year: string
     isSingle: boolean
     tracks: Array<NewTrackType>
+
+    isFavorite?: boolean
+    isPinned?: boolean
 }
 
 export type AuthorType = {
@@ -43,4 +46,5 @@ export type PinType = {
     cover: string
     name: string
     type: "author" | "album" | "playlist" | "single"
+    path?: string
 }

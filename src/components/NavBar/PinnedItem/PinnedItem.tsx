@@ -5,9 +5,10 @@ interface IProps {
     cover: string
     name: string
     type: string
+    path?: string
 }
 
-function PinnedItem({name, type, cover}: IProps) {
+function PinnedItem({name, type, cover, path}: IProps) {
 
     let pinType = "undefined";
 
@@ -22,7 +23,7 @@ function PinnedItem({name, type, cover}: IProps) {
     }
 
     return (
-        <NavLink to={`/${name.toLowerCase()}`} className={styles.main}>
+        <NavLink to={path ? path : `/${name.toLowerCase()}`} className={styles.main}>
             <img className={styles.cover} src={cover} alt=""/>
             <div className={styles.textArea}>
                 <div className={styles.name}>{name}</div>

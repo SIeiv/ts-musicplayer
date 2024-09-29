@@ -1,10 +1,26 @@
 import styles from "./Album.module.scss";
 import {NavLink} from "react-router-dom";
-import {MdFavoriteBorder, MdOutlinePushPin} from "react-icons/md";
+import {
+    MdFavoriteBorder,
+    MdOutlinePauseCircleFilled,
+    MdOutlinePlayCircleFilled,
+    MdOutlinePushPin
+} from "react-icons/md";
 import {IoMdPlayCircle} from "react-icons/io";
-import {audioPlay} from "../../../redux/main.slice.ts";
+import {
+    addAlbumToFavorites,
+    addAuthorToFavorites,
+    addPin,
+    audioPause,
+    audioPlay,
+    audioPlayNext,
+    audioResume,
+    deletePin, removeAlbumFromFavorites, removeAuthorFromFavorites
+} from "../../../redux/main.slice.ts";
 import {AlbumType, NewTrackType} from "../../../types/type.ts";
-import {useAppDispatch} from "../../../hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
+import ItemOverlay from "../ItemOverlay/ItemOverlay.tsx";
+import {useState} from "react";
 
 interface IProps {
     AlbumEntity: AlbumType
@@ -12,35 +28,81 @@ interface IProps {
     queue?: Array<NewTrackType>
 }
 
-function Album({AlbumEntity: {cover, name, year, isSingle, tracks}, author}: IProps) {
+function Album({AlbumEntity: {cover, name, year, isSingle, tracks}, author, AlbumEntity}: IProps) {
     const dispatch = useAppDispatch();
+    const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
+    const [isTouched, setIsTouched] = useState(false);
+    const audioEntity = useAppSelector(state => state.main.audioState.source);
 
-    let temp_tracks = tracks.map(t => {
-        return {...t, author};
+    const addToFavorites = () => {
+        dispatch(addAlbumToFavorites(AlbumEntity.id))
+    }
+    const removeFromFavorites = () => {
+        dispatch(removeAlbumFromFavorites(AlbumEntity.id))
+    }
+
+    let queue: Array<NewTrackType> = [];
+
+    tracks.forEach(track => {
+        queue.push(track);
     })
 
-    const onPlayClick = () => {
-        dispatch(audioPlay({
-            src: temp_tracks[0].url,
-            track: temp_tracks[0],
-            queue: temp_tracks
-        }))
+    let btnControl = () => {
+        if (isAudioPlaying) {
+            return (
+                <button onClick={() => {
+                    dispatch(audioPause());
+                }} className={styles.playButton}>
+                    <MdOutlinePauseCircleFilled/>
+                </button>
+            );
+        }
+        return (
+            <button onClick={() => {
+                if (isTouched) {
+                    dispatch(audioResume());
+                } else {
+                    dispatch(audioPlay({
+                        src: tracks[0].url,
+                        track: tracks[0],
+                        queue: queue,
+                    }));
+                    audioEntity.onended = () => {
+                        dispatch(audioPlayNext())
+                    };
+                    setIsTouched(true);
+                }
+            }} className={styles.playButton}>
+                <MdOutlinePlayCircleFilled/>
+            </button>
+        );
     }
+
+    const onAPinClick = () => {
+        dispatch(addPin({
+            cover: AlbumEntity.cover,
+            name: AlbumEntity.name,
+            type: isSingle ? "single" : "album",
+            id: AlbumEntity.id
+        }))
+    };
+    const onDPinClick = () => {
+        dispatch(deletePin({
+            id: AlbumEntity.id,
+            type: isSingle ? "single" : "album"
+        }))
+    };
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.cover}>
                 <img src={cover} alt=""/>
-                <NavLink to={`/${author.toLowerCase()}/${name.toLowerCase()}`} className={styles.overlay}>
-                    <div className={styles.overlayWrap}>
-                        <button onClick={onPlayClick}><IoMdPlayCircle/></button>
-                        <div>
-                            <button><MdOutlinePushPin/></button>
-                            <button><MdFavoriteBorder/></button>
-                        </div>
-                    </div>
-
-                </NavLink>
+                <NavLink to={`/${author.toLowerCase()}/${name.toLowerCase()}`} className={styles.overlay}></NavLink>
+                <div className={styles.buttons}>
+                    <ItemOverlay btnControl={btnControl} onAPinClick={onAPinClick} onDPinClick={onDPinClick}
+                                 addToFavorites={addToFavorites} removeFromFavorites={removeFromFavorites}
+                                 objectEntity={AlbumEntity}/>
+                </div>
             </div>
             <div className={styles.description}>
                 <div>

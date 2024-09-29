@@ -33,8 +33,31 @@
       }
     }
 
-    * {
-      justify-content: start;
+    .title {
+      * {
+        justify-content: start;
+      }
+
+    }
+
+  }
+
+  .favoriteAlbums {
+
+    .albums {
+      display: flex;
+      margin-block: 15px;
+
+      .album {
+        margin-right: 10px;
+      }
+    }
+
+    .title {
+      * {
+        justify-content: start;
+      }
+
     }
   }
 }

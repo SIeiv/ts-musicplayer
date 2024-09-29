@@ -9,7 +9,7 @@ import {useAppSelector} from "../../hooks.ts";
 const NavBar = () => {
     const pins = useAppSelector(state => state.main.pins)
 
-    const pinEls = pins.map(p => <PinnedItem cover={p.cover} name={p.name} type={p.type}/>)
+    const pinEls = pins.map(p => <PinnedItem cover={p.cover} name={p.name} type={p.type} path={p.path}/>)
 
     return (<div className={styles.navbar}>
             <div className={styles.buttons}>

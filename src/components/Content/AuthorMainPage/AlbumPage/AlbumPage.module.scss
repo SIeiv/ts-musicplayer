@@ -16,6 +16,18 @@
   .description {
     margin: 25px;
 
+    .buttons {
+      display: flex;
+      margin-top: 20px;
+
+      .button {
+        width: 40px;
+        height: 40px;
+
+        margin-right: 10px;
+      }
+    }
+
     * {
       font-weight: bold;
     }

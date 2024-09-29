@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {AuthorType, NewTrackType, PinType} from "../types/type.ts";
+import {AlbumType, AuthorType, NewTrackType, PinType} from "../types/type.ts";
 
 const DOMAIN = 'http://f1003580.xsph.ru/';
 
@@ -121,6 +121,7 @@ const initialState = {
     favoritePlaylist: [] as Array<NewTrackType>,
     favoritePlaylistIsPinned: false,
     favoriteAuthors: [] as Array<AuthorType>,
+    favoriteAlbums: [] as Array<AlbumType>,
 
     pins: [] as Array<PinType>
 }
@@ -326,22 +327,55 @@ const mainSlice = createSlice({
                 }
             })
         },
+        addAlbumToFavorites(state, action) {
+            state.mainData.forEach(author => {
+                author.albums.forEach(album => {
+                    if (album.id === action.payload) {
+                        album.isFavorite = true;
+                        state.favoriteAlbums = [album, ...state.favoriteAlbums];
+                    }
+                })
+            });
+        },
+        removeAlbumFromFavorites(state, action) {
+            state.favoriteAlbums.forEach((album, index) => {
+                if (album.id === action.payload) {
+                    state.favoriteAlbums.splice(index, 1);
+                }
+            });
+
+            state.mainData.forEach(author => {
+                author.albums.forEach(album => {
+                    if (album.id === action.payload) {
+                        album.isFavorite = false;
+                    }
+                })
+            });
+        },
 
         addPin(state, {payload: {cover, name, type, id}}) {
             let newPin: PinType = {id, cover, name, type};
-            state.pins = [newPin, ...state.pins];
 
             if (type === "author"){
                 state.mainData.forEach(author => {
                     if (author.id === id) {
                         author.isPinned = true;
                     }
-                })
+                });
             } else if (type === "playlist") {
                 state.favoritePlaylistIsPinned = true;
+            } else if (type === "album" || type === "single") {
+                state.mainData.forEach(author => {
+                    author.albums.forEach(album => {
+                        if (album.id === id) {
+                            album.isPinned = true;
+                            newPin.path = `/${author.name.toLowerCase()}/${album.name.toLowerCase()}`
+                        }
+                    })
+                })
             }
 
-
+            state.pins = [newPin, ...state.pins];
         },
         deletePin(state, {payload: {type, id}}) {
             state.pins.forEach((pin, index) => {
@@ -358,9 +392,15 @@ const mainSlice = createSlice({
                 })
             } else if (type === "playlist") {
                 state.favoritePlaylistIsPinned = false;
+            } else if (type === "album" || type === "single") {
+                state.mainData.forEach(author => {
+                    author.albums.forEach(album => {
+                        if (album.id === id) {
+                            album.isPinned = false;
+                        }
+                    })
+                })
             }
-
-
         }
     }
 });
@@ -373,7 +413,8 @@ export const {
     audioSwitchIsRandom, myVibePlay, myVibeNext,
     addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
     addAuthorToFavorites, removeAuthorFromFavorites,
-    addPin, deletePin
+    addPin, deletePin,
+    addAlbumToFavorites, removeAlbumFromFavorites
 } = mainSlice.actions;
 export default mainSlice.reducer;
 
