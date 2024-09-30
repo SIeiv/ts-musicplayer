@@ -18,6 +18,10 @@
 .content {
   margin-block: 20px;
 
+  .empty {
+    font-weight: bold;
+  }
+
   >* {
     margin-block: 10px;
   }

@@ -20,6 +20,10 @@
         height: 40px;
       }
 
+      .playButton {
+        height: 40px;
+      }
+
       >* {
         margin-right: 15px;
       }
@@ -27,30 +31,6 @@
 
     * {
       font-weight: bold;
-    }
-
-    .authorPlay {
-      background-color: #353535;
-      border-style: none;
-      color: #E6E6E6;
-      padding: 10px;
-      padding-inline: 30px;
-      border-radius: 30px;
-      cursor: pointer;
-
-      display: flex;
-      align-items: center;
-
-      transition: all;
-      transition-duration: 0.2s;
-
-      .icon {
-        margin-right: 5px;
-      }
-    }
-
-    .authorPlay:hover {
-      background-color: #3F3F3F;
     }
 
     .author {

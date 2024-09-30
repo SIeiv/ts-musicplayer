@@ -21,6 +21,7 @@ import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
 import AlbumPage from "./AlbumPage/AlbumPage.tsx";
 import RoundButton from "../../common/RoundButton/RoundButton.tsx";
 import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin, MdPushPin} from "react-icons/md";
+import LGPlayButton from "../../common/LGPlayButton/LGPlayButton.tsx";
 
 interface IProps {
     authorEntity: AuthorType
@@ -110,7 +111,9 @@ function AuthorMainPage({authorEntity}: IProps) {
                             <div className={styles.listeners}>1488</div>
                         </div>
                         <div className={styles.buttons}>
-                            <button className={styles.authorPlay} onClick={onPlayClick}><FaPlay className={styles.icon}/>Слушать</button>
+                            <div className={styles.playButton}>
+                                <LGPlayButton onClick={onPlayClick}/>
+                            </div>
                             <div className={styles.favoriteButton}>
                                 {authorEntity.isFavorite
                                         ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>

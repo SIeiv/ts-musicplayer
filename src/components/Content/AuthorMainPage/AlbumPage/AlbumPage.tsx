@@ -5,7 +5,14 @@ import BackButton from "../../../common/BackButton/BackButton.tsx";
 import RoundButton from "../../../common/RoundButton/RoundButton.tsx";
 import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin, MdPushPin} from "react-icons/md";
 import {useAppDispatch} from "../../../../hooks.ts";
-import {addAlbumToFavorites, addPin, deletePin, removeAlbumFromFavorites} from "../../../../redux/main.slice.ts";
+import {
+    addAlbumToFavorites,
+    addPin,
+    audioPlay,
+    deletePin,
+    removeAlbumFromFavorites
+} from "../../../../redux/main.slice.ts";
+import LGPlayButton from "../../../common/LGPlayButton/LGPlayButton.tsx";
 
 interface IProps {
     albumEntity: AlbumType
@@ -39,6 +46,14 @@ function AlbumPage({albumEntity, author}: IProps) {
         dispatch(removeAlbumFromFavorites(albumEntity.id));
     }
 
+    const onPlayClick = () => {
+        dispatch(audioPlay({
+            src: albumEntity.tracks[0].url,
+            track: albumEntity.tracks[0],
+            queue: albumEntity.tracks
+        }))
+    }
+
 
     return (
         <div>
@@ -54,6 +69,9 @@ function AlbumPage({albumEntity, author}: IProps) {
                         <div className={styles.author}>{author} - {albumEntity.year}</div>
                     </div>
                     <div className={styles.buttons}>
+                        <div className={styles.playButton}>
+                            <LGPlayButton onClick={onPlayClick}/>
+                        </div>
                         <div className={styles.button}>
                             {albumEntity.isFavorite
                                 ? <RoundButton onClick={onFavDClick} icon={<MdFavorite />}/>

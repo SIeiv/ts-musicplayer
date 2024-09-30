@@ -41,29 +41,41 @@ function FavoritesContent() {
                         Коллекция
                     </div>
                     <div className={styles.content}>
-                        <div>
-                            <Collection to={"/мне нравится"} text={"Мне нравится"}
-                                        counter={tracks.length} counterName={"треков"} img={favoritesCover}/>
-                            <div className={styles.tracksPreview}>
-                                {tracks}
+                        {tracks.length === 0 && favoriteAlbums.length === 0 && favoriteAuthors.length === 0
+                            && <div className={styles.empty}>empty</div>}
+                        {tracks.length
+                            ? <div>
+                                <Collection to={"/мне нравится"} text={"Мне нравится"}
+                                            counter={tracks.length} counterName={"треков"} img={favoritesCover}/>
+                                <div className={styles.tracksPreview}>
+                                    {tracks}
+                                </div>
                             </div>
-                        </div>
-                        <div className={styles.favoriteAlbums}>
-                            <div className={styles.title}>
-                                <CustomNavLink text={"Любимые альбомы"} to={"albums"}/>
+                            : <div></div>
+                        }
+
+                        {favoriteAlbums.length
+                            ? <div className={styles.favoriteAlbums}>
+                                <div className={styles.title}>
+                                    <CustomNavLink text={"Любимые альбомы"} to={"albums"}/>
+                                </div>
+                                <div className={styles.albums}>
+                                    {albums}
+                                </div>
                             </div>
-                            <div className={styles.albums}>
-                                {albums}
+                            : <div></div>
+                        }
+                        {favoriteAuthors.length
+                            ? <div className={styles.favoriteAuthors}>
+                                <div className={styles.title}>
+                                    <CustomNavLink text={"Любимые исполнители"} to={"authors"}/>
+                                </div>
+                                <div className={styles.authors}>
+                                    {authors}
+                                </div>
                             </div>
-                        </div>
-                        <div className={styles.favoriteAuthors}>
-                            <div className={styles.title}>
-                                <CustomNavLink text={"Любимые исполнители"} to={"authors"}/>
-                            </div>
-                            <div className={styles.authors}>
-                                {authors}
-                            </div>
-                        </div>
+                            : <div></div>
+                        }
                     </div>
                 </div>}/>
             </Routes>

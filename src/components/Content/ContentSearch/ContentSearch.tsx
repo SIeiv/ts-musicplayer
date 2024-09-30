@@ -13,7 +13,7 @@ import Author from "../../common/Author/Author.tsx";
 
 const ContentSearch = () => {
     const mainData = useAppSelector(state => state.main.mainData);
-    const [searchInput, setSearchInput] = useState("");
+    const [searchInput, setSearchInput] = useState("/all");
 
     const [searchType , setSearchType] = useState("track");
 

@@ -71,6 +71,9 @@ function FavoritePlaylist() {
                         <div className={styles.playlistAuthor}>local_user</div>
                     </div>
                     <div className={styles.buttons}>
+                        <div className={styles.playButton}>
+
+                        </div>
                         <button className={styles.playlistPlay} onClick={() => {
                             dispatch(audioPlay({
                                 src: queue[0].url,
