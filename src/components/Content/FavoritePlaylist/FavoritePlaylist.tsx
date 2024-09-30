@@ -10,6 +10,7 @@ import {useState} from "react";
 import SearchNotFound from "../../common/SearchNotFound/SearchNotFound.tsx";
 import RoundButton from "../../common/RoundButton/RoundButton.tsx";
 import {MdOutlinePushPin, MdPushPin} from "react-icons/md";
+import LGPlayButton from "../../common/LGPlayButton/LGPlayButton.tsx";
 
 function FavoritePlaylist() {
     const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
@@ -60,6 +61,14 @@ function FavoritePlaylist() {
         }));
     };
 
+    const onPlayClick = () => {
+        dispatch(audioPlay({
+            src: queue[0].url,
+            track: queue[0],
+            queue: queue
+            }))
+    }
+
     return (
         <div>
             <div className={styles.playlistHeader}>
@@ -72,14 +81,8 @@ function FavoritePlaylist() {
                     </div>
                     <div className={styles.buttons}>
                         <div className={styles.playButton}>
-
+                            <LGPlayButton onClick={onPlayClick}/>
                         </div>
-                        <button className={styles.playlistPlay} onClick={() => {
-                            dispatch(audioPlay({
-                                src: queue[0].url,
-                                track: queue[0],
-                                queue: queue}))
-                        }}><FaPlay className={styles.icon}/>Слушать</button>
                         <div className={styles.pin}>
                             {favoritesIsPinned
                                 ? <RoundButton onClick={onDPinClick} icon={<MdPushPin />}/>

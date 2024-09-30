@@ -15,6 +15,7 @@ import {LuRepeat, LuRepeat1} from "react-icons/lu";
 import FavoriteButton from "../common/FavoriteButton/FavoriteButton.tsx";
 import {NavLink} from "react-router-dom";
 import PlayButton from "../common/PlayButton/PlayButton.tsx";
+import Time from "../common/Time/Time.tsx";
 
 const Player = () => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
@@ -66,13 +67,6 @@ const Player = () => {
         };
     }, [isScrolling]);
 
-    function sToStr(s: any) {
-
-        let m = Math.trunc(s / 60) + ''
-        s = (s % 60) + ''
-        return m.padStart(2, "0") + ':' + s.padStart(2, "0")
-    }
-
     return (
         <div className={styles.player}>
             <div className={styles.player_left}>
@@ -111,13 +105,13 @@ const Player = () => {
                     </button>
                 </div>
                 <div className={styles.player_center_range}>
-                    <span>{sToStr(Math.round(audioSource.currentTime))}</span>
+                    <Time time={audioSource.currentTime}/>
                     <>
                         <input step={0.5} min={0} max={audioSource.duration} value={localTrackScrollValue}
                                onChange={OnScrollChange}
                                onMouseUp={OnScrollMouseUp} onMouseDown={OnScrollMouseDown} type="range"/>
                     </>
-                    <span>{audioSource.duration ? sToStr(Math.round(audioSource.duration)) : "00:00" }</span>
+                    {audioSource.duration ? <Time time={audioSource.duration}/> : <span>00:00</span> }
                 </div>
             </div>
             <div className={styles.player_right}>

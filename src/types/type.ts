@@ -12,11 +12,11 @@ export type NewTrackType = {
     id: number | null
     url: string | null
     cover: string | null
-    duration?: number | null
     isFavorite?: boolean | null
 
     author?: string
     album?: string
+    duration?: number
 }
 
 export type AlbumType = {

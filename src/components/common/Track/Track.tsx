@@ -11,8 +11,10 @@ import {
 } from "../../../redux/main.slice.ts";
 import {useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
-import {AuthorType, NewTrackType} from "../../../types/type.ts";
+import {NewTrackType} from "../../../types/type.ts";
 import {NavLink} from "react-router-dom";
+import Time from "../Time/Time.tsx";
+import PlayingAnimation from "../PlayingAnimation/PlayingAnimation.tsx";
 
 interface IProps {
     trackEntity: NewTrackType
@@ -28,6 +30,16 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     const audioEntity = useAppSelector(state => state.main.audioState.source);
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const [isTouched, setIsTouched] = useState(false);
+    const [duration, setDuration] = useState(0);
+
+    /*const dur = async () => {
+        let tempAudio = new Audio(trackEntity.url!);
+        tempAudio.volume = 0;
+        await tempAudio.play();
+        setDuration(tempAudio.duration);
+    }
+    dur();*/
+
 
     let btnControl = () => {
         if (currentTrack.id === trackEntity.id && isAudioPlaying) {
@@ -64,8 +76,8 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     let isPlayingAnimation = () => {
         if (currentTrack.id === trackEntity.id && isAudioPlaying) {
             return (
-                <div className={styles.track_left_icon_anim}>
-                    p
+                <div className={type === "default" ? styles.track_left_icon_anim : styles.track_left_icon_anim_MOD}>
+                    <PlayingAnimation/>
                 </div>
             );
         }
@@ -100,7 +112,7 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
                     <FavoriteButton trackEntity={trackEntity} author={trackEntity.author!}/>
                 </div>
                 <div className={styles.duration}>
-                    <div>00:00</div>
+                    <Time time={duration}/>
                 </div>
             </div>
 

@@ -6,20 +6,42 @@ const DOMAIN = 'http://f1003580.xsph.ru/';
 const initialState = {
     mainData: [
         {
-            name: "Powerwolf", avatar: "", albums: [
+            name: "Powerwolf", avatar: DOMAIN + "powerwolf/avatar.jpg", albums: [
                 {
                     name: "Blessed & Possessed", id: 1, cover: "", tracks: [
                         {name: "Army of the Night", id: 111, url: "", cover: ""}
                     ]
                 },
                 {
-                    name: "AI Music", id: 2, tracks: [
+                    name: "AI Music", cover: DOMAIN + "powerwolf/ai-music/cover.png", year: 2024, tracks: [
                         {
                             name: "Владимир Путин Молодец!",
-                            id: 121,
-                            url: DOMAIN + "Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover).mp3",
-                            cover: DOMAIN + "Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover)_maxresdefault.jpg"
-                        }
+                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover).mp3",
+                        },
+                        {
+                            name: "Говновоз",
+                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Говновоз (AI).mp3",
+                        },
+                        {
+                            name: "Вот и помер дед Максим",
+                            url: DOMAIN + "powerwolf/ai-music/Вот и помер дед Максим, но исполнитель POWERWOLF (AI COVER).mp3",
+                        },
+                        {
+                            name: "Убили негра",
+                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Убили негра (AI Music, Udio AI Cover Запрещенные барабанщи.mp3",
+                        },
+                        {
+                            name: "Частушки",
+                            url: DOMAIN + "powerwolf/ai-music/Частушки, но это Powerwolf (AI cover).mp3",
+                        },
+                        {
+                            name: "Терентий",
+                            url: DOMAIN + "powerwolf/ai-music/Электрослабость - Терентий, но это Powerwolf (AI COVER).mp3",
+                        },
+                        {
+                            name: "Священная война",
+                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Священная война (Ai Cover).mp3",
+                        },
                     ]
                 },
             ]
@@ -97,6 +119,87 @@ const initialState = {
                 },
             ]
         },*/
+        {
+            name: "C418", avatar: DOMAIN + "c418/avatar.jpg", albums: [
+                {
+                    name: "Minecraft - Volume Alpha", cover: DOMAIN + "c418/volume-alpha/cover.jpg", year: 2011,
+                    tracks: [
+                        {
+                            name: "Key", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Key.mp3"
+                        },
+                        {
+                            name: "Door", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Door.mp3"
+                        },
+                        {
+                            name: "Subwoofer Lullaby", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Subwoofer Lullaby.mp3"
+                        },
+                        {
+                            name: "Death", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Death.mp3"
+                        },
+                        {
+                            name: "Living Mice", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Living Mice.mp3"
+                        },
+                        {
+                            name: "Moog City", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Moog City.mp3"
+                        },
+                        {
+                            name: "Haggstrom", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Haggstrom.mp3"
+                        },
+                        {
+                            name: "Minecraft", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Minecraft.mp3"
+                        },
+                        {
+                            name: "Oxygène", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Oxygène.mp3"
+                        },
+                        {
+                            name: "Equinoxe", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Equinoxe.mp3"
+                        },
+                        {
+                            name: "Mice On Venus", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Mice On Venus.mp3"
+                        },
+                        {
+                            name: "Dry Hands", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Dry Hands.mp3"
+                        },
+                        {
+                            name: "Wet Hands", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Wet Hands.mp3"
+                        },
+                        {
+                            name: "Clark", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Clark.mp3"
+                        },
+                        {
+                            name: "Chris", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Chris.mp3"
+                        },
+                        {
+                            name: "Thirteen", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Thirteen.mp3"
+                        },
+                        {
+                            name: "Excuse", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Excuse.mp3"
+                        },
+                        {
+                            name: "Sweden", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Sweden.mp3"
+                        },
+                        {
+                            name: "Cat", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Cat.mp3"
+                        },
+                        {
+                            name: "Dog", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Dog.mp3"
+                        },
+                        {
+                            name: "Danny", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Danny.mp3"
+                        },
+                        {
+                            name: "Beginning", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Beginning.mp3"
+                        },
+                        {
+                            name: "Droopy Likes Ricochet", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Droopy Likes Ricochet.mp3"
+                        },
+                        {
+                            name: "Droopy Likes Your Face", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Droopy Likes Your Face.mp3"
+                        },
+                    ]
+                }
+            ]
+        }
     ] as Array<AuthorType>,
 
     audioState: {
@@ -136,11 +239,15 @@ let trackIdController = 1;*/
 
 let mainIdController = 1;
 
+
+
 initialState.mainData.forEach(author => {
     author.id = mainIdController++;
     author.albums.forEach(album => {
         album.id = mainIdController++;
         album.tracks.forEach(track => {
+            track.cover = track.cover ? track.cover : album.cover;
+
             track.id = mainIdController++;
             track.author = author.name;
             track.album = album.name;
