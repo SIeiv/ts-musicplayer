@@ -6,8 +6,13 @@ const reducers = combineReducers({
 })
 
 const store = configureStore({
-    reducer: reducers
+    reducer: reducers,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 })
+
 
 // Get the type of our store variable
 export type AppStore = typeof store

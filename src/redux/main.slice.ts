@@ -1,5 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AlbumType, AuthorType, NewTrackType, PinType} from "../types/type.ts";
+import author from "../components/common/Author/Author.tsx";
 
 const DOMAIN = 'http://f1003580.xsph.ru/';
 
@@ -205,7 +206,11 @@ const initialState = {
     audioState: {
         source: new Audio(),
         isPlaying: false,
-        isMyVibePlaying: false,
+
+        isMyVibeActive: false,
+        myVibeHistory: [] as Array<NewTrackType>,
+        myVibeHistoryPos: -1,
+
         isRepeating: 0,
         isRandom: false,
         currentQueue: [] as Array<any>,
@@ -230,14 +235,14 @@ const initialState = {
 }
 
 let mainIdController = 1;
+initialState.audioState.source.volume = 0.2;
+
 
 const mainSlice = createSlice({
     name: 'main',
     initialState,
     reducers: {
         init(state) {
-            state.audioState.source.volume = 0.2;
-
             state.mainData.forEach(author => {
                 author.id = mainIdController++;
                 author.albums.forEach(album => {
@@ -247,7 +252,6 @@ const mainSlice = createSlice({
                         track.id = mainIdController++;
                         track.author = author.name;
                         track.album = album.name;
-
                     })
                 })
             })
@@ -266,6 +270,7 @@ const mainSlice = createSlice({
             })
 
             audioState.source.play();
+            audioState.isMyVibeActive = false;
             audioState.isPlaying = true;
         },
         audioPause({audioState}) {
@@ -337,29 +342,53 @@ const mainSlice = createSlice({
         },
 
         //broken
-        myVibePlay({audioState,}) {
-            //audioState.currentQueue = allTracks;
+        myVibePlay({audioState, ...state}) {
+
+            let allTracks: Array<NewTrackType> = [];
+
+            state.mainData.forEach(author => {
+                author.albums.forEach(album => {
+                    album.tracks.forEach(track => allTracks.push(track));
+                })
+            })
+
+            audioState.currentQueue = allTracks;
             audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
             audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
             audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+
+            audioState.myVibeHistory.push(audioState.currentTrack);
+            audioState.myVibeHistoryPos++;
+
             audioState.source.play();
-            audioState.isMyVibePlaying = true;
+            audioState.isMyVibeActive = true;
+            audioState.isPlaying = true;
         },
         myVibeNext({audioState}) {
-            audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
-            audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
-            audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+            if (audioState.myVibeHistoryPos === audioState.myVibeHistory.length - 1) {
+                audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
+                audioState.currentTrack = audioState.currentQueue[audioState.placeInQueue];
+                audioState.source.src = audioState.currentQueue[audioState.placeInQueue].url;
+
+                audioState.myVibeHistory.push(audioState.currentTrack);
+                audioState.myVibeHistoryPos++;
+            } else {
+                audioState.myVibeHistoryPos++;
+                audioState.currentTrack = audioState.myVibeHistory[audioState.myVibeHistoryPos];
+                audioState.source.src = audioState.myVibeHistory[audioState.myVibeHistoryPos].url!;
+            }
+
             audioState.source.play();
-            audioState.isMyVibePlaying = true;
+            audioState.isPlaying = true;
         },
-        myVibePause({audioState}) {
-            audioState.source.pause();
-            audioState.isMyVibePlaying = false;
-        },
-        myVibeResume({audioState}) {
+        myVibePrev({audioState}) {
+            audioState.myVibeHistoryPos--;
+            audioState.currentTrack = audioState.myVibeHistory[audioState.myVibeHistoryPos];
+            audioState.source.src = audioState.myVibeHistory[audioState.myVibeHistoryPos].url!;
             audioState.source.play();
-            audioState.isMyVibePlaying = true;
+            audioState.isPlaying = true;
         },
+
 
         onScrollChange({audioState}, action) {
             audioState.source.currentTime = action.payload;
@@ -515,7 +544,7 @@ export const {
     addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
     addAuthorToFavorites, removeAuthorFromFavorites,
     addPin, deletePin,
-    addAlbumToFavorites, removeAlbumFromFavorites, init
+    addAlbumToFavorites, removeAlbumFromFavorites, init, myVibePrev
 } = mainSlice.actions;
 export default mainSlice.reducer;
 

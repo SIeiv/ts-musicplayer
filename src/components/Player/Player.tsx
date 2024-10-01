@@ -5,7 +5,7 @@ import {MdSkipNext, MdSkipPrevious} from "react-icons/md";
 import {
     audioPlayNext,
     audioPlayPrev, audioSwitchIsRandom, audioSwitchIsRepeating,
-    changeAudioVolume, myVibeNext,
+    changeAudioVolume, myVibeNext, myVibePrev,
     onScrollChange
 } from "../../redux/main.slice.ts";
 import {useEffect, useState} from "react";
@@ -20,7 +20,7 @@ import Time from "../common/Time/Time.tsx";
 const Player = () => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const isPlaying = useAppSelector(state => state.main.audioState.isPlaying);
-    const isMyVibePlaying = useAppSelector(state => state.main.audioState.isMyVibePlaying);
+    const isMyVibeActive = useAppSelector(state => state.main.audioState.isMyVibeActive);
     const isRepeating = useAppSelector(state => state.main.audioState.isRepeating);
     const isRandom = useAppSelector(state => state.main.audioState.isRandom);
     const audioSource = useAppSelector(state => state.main.audioState.source)
@@ -75,11 +75,13 @@ const Player = () => {
                 </div>
                 <div className={styles.player_left_text}>
                     <div>
-                        <NavLink to={`/${currentTrack.author!.toLowerCase()}/${currentTrack.album!.toLowerCase()}`} className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</NavLink>
+                        <NavLink to={`/${currentTrack.author!.toLowerCase()}/${currentTrack.album!.toLowerCase()}`}
+                                 className={styles.track_left_text_name}>{currentTrack.name ? currentTrack.name : "-"}</NavLink>
                     </div>
                     {!currentTrack.author
                         ? <div className={styles.track_left_text_author}>-</div>
-                        : <NavLink to={`/${currentTrack.author.toLowerCase()}`} className={styles.track_left_text_author}>{currentTrack.author}</NavLink>}
+                        : <NavLink to={`/${currentTrack.author.toLowerCase()}`}
+                                   className={styles.track_left_text_author}>{currentTrack.author}</NavLink>}
                 </div>
                 <div className={styles.favoriteButton}>
                     <FavoriteButton trackEntity={currentTrack} author={currentTrack.author!}/>
@@ -87,22 +89,37 @@ const Player = () => {
             </div>
             <div className={styles.player_center}>
                 <div className={styles.player_center_buttons}>
-                    <button style={{color: isRepeating ? "#E6E6E6" : "#888888"}}
-                            onClick={() => {dispatch(audioSwitchIsRepeating())}}>
-                        {isRepeating === 2 ? <LuRepeat1 /> : <LuRepeat />}
-                    </button>
-                    <button className={styles.prev} onClick={() => {dispatch(audioPlayPrev())}}><MdSkipPrevious/></button>
-                    <PlayButton requirement={isPlaying || isMyVibePlaying}/>
+                    {!isMyVibeActive
+                        && <button style={{color: isRepeating ? "#E6E6E6" : "#888888"}}
+                                   onClick={() => {
+                                       dispatch(audioSwitchIsRepeating())
+                                   }}>
+                            {isRepeating === 2 ? <LuRepeat1/> : <LuRepeat/>}
+                        </button>}
+
+                    <button className={styles.prev} onClick={() => {
+                        if (isMyVibeActive) {
+                            dispatch(myVibePrev());
+                        } else {
+                            dispatch(audioPlayPrev());
+                        }
+                    }}><MdSkipPrevious/></button>
+                    <PlayButton requirement={isPlaying}/>
                     <button className={styles.next} onClick={() => {
-                        if (isPlaying) {
-                            dispatch(audioPlayNext());
-                        } else if (isMyVibePlaying) {
+                        if (isMyVibeActive) {
                             dispatch(myVibeNext());
+                        } else {
+                            dispatch(audioPlayNext());
                         }
                     }}><MdSkipNext/></button>
-                    <button style={{color: isRandom ? "#E6E6E6" : "#888888"}} onClick={() => {dispatch(audioSwitchIsRandom())}}>
-                        <LiaRandomSolid />
-                    </button>
+                    {!isMyVibeActive
+                        && <button style={{color: isRandom ? "#E6E6E6" : "#888888"}} onClick={() => {
+                            dispatch(audioSwitchIsRandom())
+                        }}>
+                            <LiaRandomSolid/>
+                        </button>
+                    }
+
                 </div>
                 <div className={styles.player_center_range}>
                     <Time time={audioSource.currentTime}/>
@@ -111,7 +128,7 @@ const Player = () => {
                                onChange={OnScrollChange}
                                onMouseUp={OnScrollMouseUp} onMouseDown={OnScrollMouseDown} type="range"/>
                     </>
-                    {audioSource.duration ? <Time time={audioSource.duration}/> : <span>00:00</span> }
+                    {audioSource.duration ? <Time time={audioSource.duration}/> : <span>00:00</span>}
                 </div>
             </div>
             <div className={styles.player_right}>
