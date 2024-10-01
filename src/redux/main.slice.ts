@@ -229,36 +229,30 @@ const initialState = {
     pins: [] as Array<PinType>
 }
 
-
-//initialize
-initialState.audioState.source.volume = 0.2;
-
-/*let authorIdController = 1;
-let albumIdController = 1;
-let trackIdController = 1;*/
-
 let mainIdController = 1;
-
-
-
-initialState.mainData.forEach(author => {
-    author.id = mainIdController++;
-    author.albums.forEach(album => {
-        album.id = mainIdController++;
-        album.tracks.forEach(track => {
-            track.cover = track.cover ? track.cover : album.cover;
-
-            track.id = mainIdController++;
-            track.author = author.name;
-            track.album = album.name;
-        })
-    })
-})
 
 const mainSlice = createSlice({
     name: 'main',
     initialState,
     reducers: {
+        init(state) {
+            state.audioState.source.volume = 0.2;
+
+            state.mainData.forEach(author => {
+                author.id = mainIdController++;
+                author.albums.forEach(album => {
+                    album.id = mainIdController++;
+                    album.tracks.forEach(track => {
+                        track.cover = track.cover ? track.cover : album.cover;
+                        track.id = mainIdController++;
+                        track.author = author.name;
+                        track.album = album.name;
+
+                    })
+                })
+            })
+        },
+
         audioPlay({audioState}, {payload: {src, track, queue, author}}) {
             audioState.isPlaying = false;
             audioState.source.src = src;
@@ -521,7 +515,7 @@ export const {
     addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
     addAuthorToFavorites, removeAuthorFromFavorites,
     addPin, deletePin,
-    addAlbumToFavorites, removeAlbumFromFavorites
+    addAlbumToFavorites, removeAlbumFromFavorites, init
 } = mainSlice.actions;
 export default mainSlice.reducer;
 

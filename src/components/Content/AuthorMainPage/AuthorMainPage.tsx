@@ -1,6 +1,5 @@
 import styles from "./AuthorMainPage.module.scss";
 import favoritesCover from "../../../assets/playlist-cover_like.png";
-import {FaPlay} from "react-icons/fa";
 import {AlbumType, AuthorType, NewTrackType} from "../../../types/type.ts";
 import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
@@ -116,8 +115,8 @@ function AuthorMainPage({authorEntity}: IProps) {
                             </div>
                             <div className={styles.favoriteButton}>
                                 {authorEntity.isFavorite
-                                        ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
-                                        : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
+                                    ? <RoundButton onClick={removeFromFavorites} icon={<MdFavorite />}/>
+                                    : <RoundButton onClick={authorToFavorites} icon={<MdFavoriteBorder />}/>
                                 }
                             </div>
                             <div className={styles.favoriteButton}>
@@ -136,12 +135,14 @@ function AuthorMainPage({authorEntity}: IProps) {
                         <div className={styles.trackElements}>
                             {trackEls}
                         </div>
-
                     </div>
-                    <div>
-                        <Collection to={"familiar"} text={"Знакомое вам"} counter={favoriteTracks.length} counterName={"треков"}
-                                    img={favoritesCover}/>
-                    </div>
+                    {favoriteTracks.length
+                        ? <div>
+                            <Collection to={"familiar"} text={"Знакомое вам"} counter={favoriteTracks.length} counterName={"треков"}
+                                        img={favoritesCover}/>
+                        </div>
+                        : <div></div>
+                    }
                     <div className={styles.albums}>
                         <div className={styles.nav}>
                             <CustomNavLink text={"Альбомы"} to={"albums"}/>

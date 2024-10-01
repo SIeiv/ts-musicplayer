@@ -6,7 +6,8 @@
   }
 }
 
+
 .flex {
   display: grid;
-  grid-template-columns: repeat(6, 230px);
+  grid-template-columns: repeat(auto-fit, 230px);
 }

@@ -6,6 +6,7 @@
   margin-top: 0;
   border-radius: 10px;
   border: solid 1px #1B1B1B;
+  min-width: 855px;
 
   .player_left {
     width: 30%;
@@ -74,13 +75,33 @@
       display: flex;
       align-items: center;
 
+      >* {
+        &:hover {
+          * {
+            color: #E6E6E6;
+          }
+        }
+      }
+
       .prev {
+        &:hover {
+          * {
+            color: #E6E6E6;
+          }
+        }
+
         * {
           color: #888888;
         }
       }
 
       .next {
+        &:hover {
+          * {
+            color: #E6E6E6;
+          }
+        }
+
         * {
           color: #888888;
         }
