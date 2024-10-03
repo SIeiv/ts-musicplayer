@@ -1,0 +1,50 @@
+.maincontentMyVibeFX {
+  position: absolute;
+  top: 10px;
+  z-index: -0.1;
+  max-height: 100%;
+}
+
+.myVibeButton {
+  position: absolute;
+  background-color: transparent;
+  color: #E6E6E6;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+
+  .icon {
+    margin-right: 5px;
+    font-size: 18px;
+  }
+}
+
+
+.maincontentMyVibe {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 550px;
+}
+
+.allContent {
+  margin-top: 20px;
+
+  .element {
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    align-items: start;
+
+    .flex {
+      display: flex;
+    }
+
+    >* {
+      width: 100%;
+    }
+  }
+}
+
