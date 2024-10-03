@@ -1,21 +1,17 @@
 import styles from "./Album.module.scss";
 import {NavLink} from "react-router-dom";
 import {
-    MdFavoriteBorder,
     MdOutlinePauseCircleFilled,
     MdOutlinePlayCircleFilled,
-    MdOutlinePushPin
 } from "react-icons/md";
-import {IoMdPlayCircle} from "react-icons/io";
 import {
     addAlbumToFavorites,
-    addAuthorToFavorites,
     addPin,
     audioPause,
     audioPlay,
     audioPlayNext,
     audioResume,
-    deletePin, removeAlbumFromFavorites, removeAuthorFromFavorites
+    deletePin, removeAlbumFromFavorites,
 } from "../../../redux/main.slice.ts";
 import {AlbumType, NewTrackType} from "../../../types/type.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";

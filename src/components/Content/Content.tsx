@@ -36,7 +36,11 @@ const Content = () => {
             <div className={styles.contentWrapper}>
                 <Routes>
                     <Route path={"/search"} element={<ContentSearch/>}/>
-                    <Route path={"/main/*"} element={<MainContent/>}/>
+                    <Route path={"/main"} element={<MainContent/>}>
+                        <Route path={"authors"}/>
+                        <Route path={"albums"}/>
+                        <Route path={"tracks"}/>
+                    </Route>
                     <Route path={"/podcasts"} element={<MainContent/>}/>
                     <Route path={"/favorites"} element={<FavoritesContent/>}>
                         <Route path={"authors"}/>

@@ -104,6 +104,18 @@ const initialState = {
                         },
                     ]
                 },
+                {
+                    name: "Почему ты ещё не фанат", cover: DOMAIN + "/ab67616d0000b273f629e1b41d71095d70ec9e1c.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                       {name: "Почему ты ещё не фанат", url: DOMAIN + "/Почему ты еще не фанат？.mp3"}
+                    ]
+                },
+                {
+                    name: "Мой топор", cover: DOMAIN + "/ab67616d0000b27390d227750619710fa3fb7241.jpg", year: "2022",
+                    isSingle: true, tracks: [
+                       {name: "Мой топор", url: DOMAIN + "/СЕРЕГА ПИРАТ - МОЙ ТОПОР (ОФИЦИАЛЬНЫЙ КЛИП).mp3"}
+                    ]
+                },
             ]
         },
         /*{
@@ -197,6 +209,41 @@ const initialState = {
                         {
                             name: "Droopy Likes Your Face", url: DOMAIN + "c418/volume-alpha/spotifydown.com - Droopy Likes Your Face.mp3"
                         },
+                    ]
+                },
+                {
+                    name: "Minecraft - Volume Beta", cover: DOMAIN + "c418/volume-beta/cover.jpg", year: 2013,
+                    tracks: [
+                        {name: "Ki", url: DOMAIN + "c418/volume-beta/spotifydown.com - Ki.mp3"},
+                        {name: "Alpha", url: DOMAIN + "c418/volume-beta/spotifydown.com - Alpha.mp3"},
+                        {name: "Dead Voxel", url: DOMAIN + "c418/volume-beta/spotifydown.com - Dead Voxel.mp3"},
+                        {name: "Blind Spots", url: DOMAIN + "c418/volume-beta/spotifydown.com - Blind Spots.mp3"},
+                        {name: "Flake", url: DOMAIN + "c418/volume-beta/spotifydown.com - Flake.mp3"},
+                        {name: "Moog City 2", url: DOMAIN + "c418/volume-beta/spotifydown.com - Moog City 2.mp3"},
+                        {name: "Concrete Halls", url: DOMAIN + "c418/volume-beta/spotifydown.com - Concrete Halls.mp3"},
+                        {name: "Biome Fest", url: DOMAIN + "c418/volume-beta/spotifydown.com - Biome Fest.mp3"},
+                        {name: "Mutation", url: DOMAIN + "c418/volume-beta/spotifydown.com - Mutation.mp3"},
+                        {name: "Haunt Muskie", url: DOMAIN + "c418/volume-beta/spotifydown.com - Haunt Muskie.mp3"},
+                        {name: "Warmth", url: DOMAIN + "c418/volume-beta/spotifydown.com - Warmth.mp3"},
+                        {name: "Floating Trees", url: DOMAIN + "c418/volume-beta/spotifydown.com - Floating Trees.mp3"},
+                        {name: "Aria Math", url: DOMAIN + "c418/volume-beta/spotifydown.com - Aria Math.mp3"},
+                        {name: "Kyoto", url: DOMAIN + "c418/volume-beta/spotifydown.com - Kyoto.mp3"},
+                        {name: "Ballad of the Cats", url: DOMAIN + "c418/volume-beta/spotifydown.com - Ballad of the Cats.mp3"},
+                        {name: "Taswell", url: DOMAIN + "c418/volume-beta/spotifydown.com - Taswell.mp3"},
+                        {name: "Beginning 2", url: DOMAIN + "c418/volume-beta/spotifydown.com - Beginning 2.mp3"},
+                        {name: "Dreiton", url: DOMAIN + "c418/volume-beta/spotifydown.com - Dreiton.mp3"},
+                        {name: "The End", url: DOMAIN + "c418/volume-beta/spotifydown.com - The End.mp3"},
+                        {name: "Chirp", url: DOMAIN + "c418/volume-beta/spotifydown.com - Chirp.mp3"},
+                        {name: "Wait", url: DOMAIN + "c418/volume-beta/spotifydown.com - Wait.mp3"},
+                        {name: "Mellohi", url: DOMAIN + "c418/volume-beta/spotifydown.com - Mellohi.mp3"},
+                        {name: "Stal", url: DOMAIN + "c418/volume-beta/spotifydown.com - Stal.mp3"},
+                        {name: "Strad", url: DOMAIN + "c418/volume-beta/spotifydown.com - Strad.mp3"},
+                        {name: "Eleven", url: DOMAIN + "c418/volume-beta/spotifydown.com - Eleven.mp3"},
+                        {name: "Ward", url: DOMAIN + "c418/volume-beta/spotifydown.com - Ward.mp3"},
+                        {name: "Mall", url: DOMAIN + "c418/volume-beta/spotifydown.com - Mall.mp3"},
+                        {name: "Blocks", url: DOMAIN + "c418/volume-beta/spotifydown.com - Blocks.mp3"},
+                        {name: "Far", url: DOMAIN + "c418/volume-beta/spotifydown.com - Far.mp3"},
+                        {name: "Intro", url: DOMAIN + "c418/volume-beta/spotifydown.com - Intro.mp3"},
                     ]
                 }
             ]

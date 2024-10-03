@@ -5,10 +5,10 @@ import favoritesCover from "../../../assets/playlist-cover_like.png";
 import Collection from "../../common/Collection/Collection.tsx";
 import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
 import {Route, Routes} from "react-router-dom";
-import BackButton from "../../common/BackButton/BackButton.tsx";
 import Author from "../../common/Author/Author.tsx";
 import {AlbumType, AuthorType} from "../../../types/type.ts";
 import Album from "../../common/Album/Album.tsx";
+import PageOfItems from "../../common/PageOfItems/PageOfItems.tsx";
 
 function FavoritesContent() {
     const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
@@ -34,15 +34,15 @@ function FavoritesContent() {
     return (
         <div>
             <Routes>
-                <Route path={"authors"} element={<div><BackButton/></div>}/>
-                <Route path={"albums"} element={<div><BackButton/></div>}/>
+                <Route path={"authors"} element={<PageOfItems items={authors} title={"Любимые исполнители"}/>}/>
+                <Route path={"albums"} element={<PageOfItems items={albums} title={"Любимые альбомы"}/>}/>
                 <Route path={""} element={<div>
                     <div className={styles.title}>
                         Коллекция
                     </div>
                     <div className={styles.content}>
                         {tracks.length === 0 && favoriteAlbums.length === 0 && favoriteAuthors.length === 0
-                            && <div className={styles.empty}>empty</div>}
+                            && <div className={styles.empty}>Лайкните что-нибудь и оно появится здесь</div>}
                         {tracks.length
                             ? <div>
                                 <Collection to={"/мне нравится"} text={"Мне нравится"}

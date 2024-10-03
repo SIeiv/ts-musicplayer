@@ -1,5 +1,7 @@
 .main {
   text-align: center;
+
+  margin-right: 20px;
 }
 
 .playButton{
@@ -62,7 +64,6 @@
   flex-direction: column;
 
   width: 205px;
-  height: 205px;
 
   * {
     font-weight: bold;

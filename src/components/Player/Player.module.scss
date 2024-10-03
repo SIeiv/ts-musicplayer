@@ -199,8 +199,12 @@
       border-style: none;
       cursor: pointer;
 
-      * {
+      color: #888888;
+      &:hover {
         color: #E6E6E6;
+      }
+
+      * {
         width: 32px;
         height: 32px;
       }

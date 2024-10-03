@@ -7,7 +7,6 @@ import Track from "../../common/Track/Track.tsx";
 import Collection from "../../common/Collection/Collection.tsx";
 import Album from "../../common/Album/Album.tsx";
 import {Route, Routes} from "react-router-dom";
-import AuthorTracks from "./AuthorTracks/AuthorTracks.tsx";
 import FamiliarTracks from "./FamiliarTracks/FamiliarTracks.tsx";
 import {
     addAuthorToFavorites,
@@ -16,11 +15,11 @@ import {
     deletePin,
     removeAuthorFromFavorites
 } from "../../../redux/main.slice.ts";
-import AuthorAlbums from "./AuthorAlbums/AuthorAlbums.tsx";
 import AlbumPage from "./AlbumPage/AlbumPage.tsx";
 import RoundButton from "../../common/RoundButton/RoundButton.tsx";
 import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin, MdPushPin} from "react-icons/md";
 import LGPlayButton from "../../common/LGPlayButton/LGPlayButton.tsx";
+import PageOfItems from "../../common/PageOfItems/PageOfItems.tsx";
 
 interface IProps {
     authorEntity: AuthorType
@@ -94,12 +93,15 @@ function AuthorMainPage({authorEntity}: IProps) {
                                                                                           author={authorEntity.name}/>}/>)
     })
 
+    const albumEls = authorAlbums.map(a => <Album AlbumEntity={a} author={authorEntity.name}/>);
+    let trackEls2 = authorTracks.map(e => <Track trackEntity={e} author={authorEntity.name} queue={authorTracks}/>);
+
     return (
         <div>
             <Routes>
-                <Route path={"/tracks"} element={<AuthorTracks authorTracks={authorTracks} author={authorEntity.name}/>}/>
+                <Route path={"/tracks"} element={<PageOfItems items={trackEls2} title={"Треки"} isTracks={true}/>}/>
                 <Route path={"/familiar"} element={<FamiliarTracks familiarTracks={favoriteTracks} author={authorEntity.name}/>}/>
-                <Route path={"/albums"} element={<AuthorAlbums authorAlbums={authorAlbums} authorName={authorEntity.name}/>}/>
+                <Route path={"/albums"} element={<PageOfItems items={albumEls} title={"Альбомы"}/>}/>
                 {albumRoutes}
                 <Route path={""} element={<div><div className={styles.header}>
                     <img src={authorEntity.avatar} alt=""/>
@@ -107,7 +109,7 @@ function AuthorMainPage({authorEntity}: IProps) {
                         <div>
                             <div className={styles.author}>Исполнитель</div>
                             <div className={styles.authorName}>{authorEntity.name}</div>
-                            <div className={styles.listeners}>1488</div>
+                            <div className={styles.listeners}>1488 cлушателей в месяц</div>
                         </div>
                         <div className={styles.buttons}>
                             <div className={styles.playButton}>

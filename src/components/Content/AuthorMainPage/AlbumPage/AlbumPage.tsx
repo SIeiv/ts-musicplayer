@@ -13,6 +13,7 @@ import {
     removeAlbumFromFavorites
 } from "../../../../redux/main.slice.ts";
 import LGPlayButton from "../../../common/LGPlayButton/LGPlayButton.tsx";
+import {NavLink} from "react-router-dom";
 
 interface IProps {
     albumEntity: AlbumType
@@ -66,7 +67,7 @@ function AlbumPage({albumEntity, author}: IProps) {
                     <div>
                         <div className={styles.album}>{albumEntity.isSingle ? "Сингл" : "Альбом"}</div>
                         <div className={styles.albumName}>{albumEntity.name}</div>
-                        <div className={styles.author}>{author} - {albumEntity.year}</div>
+                        <div className={styles.author}><NavLink className={styles.nav} to={`/${author.toLowerCase()}`}>{author}</NavLink> - {albumEntity.year}</div>
                     </div>
                     <div className={styles.buttons}>
                         <div className={styles.playButton}>

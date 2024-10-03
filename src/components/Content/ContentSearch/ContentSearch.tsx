@@ -13,7 +13,7 @@ import Author from "../../common/Author/Author.tsx";
 
 const ContentSearch = () => {
     const mainData = useAppSelector(state => state.main.mainData);
-    const [searchInput, setSearchInput] = useState("/all");
+    const [searchInput, setSearchInput] = useState("");
 
     const [searchType , setSearchType] = useState("track");
 
@@ -68,6 +68,7 @@ const ContentSearch = () => {
                                       onClick={() => {setSearchType("author")}}/>
             </div>
             <div>
+                {searchInput === "" && <div style={{color: "#898989"}}>Начните набирать что-нибудь в поиск и результаты появятся здесь</div>}
                 {!(trackElements.length === 0 && searchInput !== "") && trackElements}
                 <div className={mainStyles.flex} >
                     {!(albumElements.length === 0 && searchInput !== "") && albumElements}

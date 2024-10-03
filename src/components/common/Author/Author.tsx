@@ -2,12 +2,7 @@ import styles from "./Author.module.scss";
 import {NavLink} from "react-router-dom";
 import {AuthorType, NewTrackType} from "../../../types/type.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
-import RoundButton from "../RoundButton/RoundButton.tsx";
-import {
-    MdFavorite,
-    MdFavoriteBorder, MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled,
-    MdOutlinePushPin, MdPushPin
-} from "react-icons/md";
+import {MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled} from "react-icons/md";
 import {
     addAuthorToFavorites, addPin, audioPause, audioPlay, audioPlayNext, audioResume, deletePin,
     removeAuthorFromFavorites

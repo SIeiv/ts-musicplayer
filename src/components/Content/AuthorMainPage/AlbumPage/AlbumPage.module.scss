@@ -47,6 +47,15 @@
     }
     .author {
       color: #898989;
+
+      .nav {
+        text-decoration: none;
+        color: #898989;
+
+        &:hover {
+          color: #E6E6E6;
+        }
+      }
     }
   }
 }
