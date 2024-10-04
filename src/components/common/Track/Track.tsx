@@ -7,7 +7,7 @@ import {
     audioPause,
     audioPlay,
     audioPlayNext,
-    audioResume
+    audioResume, initDuration
 } from "../../../redux/main.slice.ts";
 import {useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
@@ -31,6 +31,10 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const [isTouched, setIsTouched] = useState(false);
     const [duration, setDuration] = useState(0);
+    const initAudio = useAppSelector(state => state.main.initAudio)
+
+
+
 
     /*const dur = async () => {
         let tempAudio = new Audio(trackEntity.url!);
@@ -39,6 +43,11 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
         setDuration(tempAudio.duration);
     }
     dur();*/
+
+    dispatch(initDuration(trackEntity));
+    initAudio.onloadedmetadata = () => {
+        setDuration(initAudio.duration);
+    }
 
 
     let btnControl = () => {

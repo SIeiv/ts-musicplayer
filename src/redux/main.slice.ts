@@ -330,6 +330,8 @@ const initialState = {
         }
     ] as Array<AuthorType>,
 
+    initAudio: new Audio(),
+
     audioState: {
         source: new Audio(),
         isPlaying: false,
@@ -379,31 +381,13 @@ const mainSlice = createSlice({
                         track.id = mainIdController++;
                         track.author = author.name;
                         track.album = album.name;
-
-                        /*let initAudio = new Audio(track.url!);
-                        initAudio.volume = 0;*/
-
-                        /*let val = initAudio.duration;
-                        track.duration = val;
-                        console.log(">>>" + val);*/
-
-                        /*var audio = new Audio();
-                        audio.onloadedmetadata = function(){
-                            console.log(audio.duration);
-                        };
-                        audio.src = track.url!;*/
-
-
-
-                        /*initAudio.oncanplay = function(){
-                            let val = initAudio.duration;
-                            //track.duration = val;
-                            console.log(">>>" + val);
-                        };*/
-
                     })
                 })
             })
+        },
+        initDuration(state, action) {
+            state.initAudio.volume = 0;
+            state.initAudio.src = action.payload.url;
         },
 
         audioPlay({audioState}, {payload: {src, track, queue, author}}) {
@@ -693,7 +677,8 @@ export const {
     addTrackToFavoritePlaylist, removeTrackFromFavoritePlaylist,
     addAuthorToFavorites, removeAuthorFromFavorites,
     addPin, deletePin,
-    addAlbumToFavorites, removeAlbumFromFavorites, init, myVibePrev
+    addAlbumToFavorites, removeAlbumFromFavorites, init,
+    myVibePrev, initDuration
 } = mainSlice.actions;
 export default mainSlice.reducer;
 
