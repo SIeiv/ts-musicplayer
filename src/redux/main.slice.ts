@@ -9,8 +9,18 @@ const initialState = {
         {
             name: "Powerwolf", avatar: DOMAIN + "powerwolf/avatar.jpg", albums: [
                 {
-                    name: "Blessed & Possessed", id: 1, cover: "", tracks: [
-                        {name: "Army of the Night", id: 111, url: "", cover: ""}
+                    name: "Wake Up the Wicked", cover: DOMAIN + "powerwolf/wake-up-the-wicked/cover.jpg", year: "2024", tracks: [
+                        {name: "Bless 'em With the Blade", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Bless 'em With the Blade.mp3"},
+                        {name: "Sinners of the Seven Seas", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Sinners of the Seven Seas.mp3"},
+                        {name: "Kyrie Klitorem", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Kyrie Klitorem.mp3"},
+                        {name: "Heretic Hunters", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Heretic Hunters.mp3"},
+                        {name: "1589", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - 1589.mp3"},
+                        {name: "Viva Vulgata", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Viva Vulgata.mp3"},
+                        {name: "Wake Up the Wicked", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Wake Up the Wicked.mp3"},
+                        {name: "Joan of Arc", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Joan of Arc.mp3"},
+                        {name: "Thunderpriest", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Thunderpriest.mp3"},
+                        {name: "We Don't Wanna Be No Saints", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - We Don't Wanna Be No Saints.mp3"},
+                        {name: "Vargamor", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Vargamor.mp3"},
                     ]
                 },
                 {
@@ -102,6 +112,10 @@ const initialState = {
                             url: DOMAIN + "Серега пират - новогодняя.mp3",
                             cover: DOMAIN + "serega-pirat/avatar.jpg"
                         },
+                        {name: "травоман", url: DOMAIN + "quiizzzmeow, Серега Пират - травоман (слив трека 2020).mp3"},
+                        {name: "минёр", url: DOMAIN + "Серега пират - минёр.mp3"},
+                        {name: "солевар", url: DOMAIN + "Серёга пират - солевар.mp3"},
+                        {name: "команда виновата", url: DOMAIN + "серёга пират - команда виновата.mp3"},
                     ]
                 },
                 {
@@ -114,6 +128,72 @@ const initialState = {
                     name: "Мой топор", cover: DOMAIN + "/ab67616d0000b27390d227750619710fa3fb7241.jpg", year: "2022",
                     isSingle: true, tracks: [
                        {name: "Мой топор", url: DOMAIN + "/СЕРЕГА ПИРАТ - МОЙ ТОПОР (ОФИЦИАЛЬНЫЙ КЛИП).mp3"}
+                    ]
+                },
+                {
+                    name: "Я это я", cover: DOMAIN + "/ab67616d0000b273c9108adc2b2aca06128af296.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                        {name: "Я это я", url: DOMAIN + "/Серега Пират - я это я (prod. Bad Kid).mp3"}
+                    ]
+                },
+                {
+                    name: "В этой траве", cover: DOMAIN + "/ab67616d0000b273d8b8ac081653ac8fc3009026.jpg", year: "2024",
+                    isSingle: true, tracks: [
+                        {name: "В этой траве", url: DOMAIN + "/Серега пират - В этой траве.mp3"}
+                    ]
+                },
+                {
+                    name: "Маша", cover: DOMAIN + "/ab67616d0000b2737c237aaefc4b4e023c974a84.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                        {name: "Маша", url: DOMAIN + "/Серега пират - Маша.mp3"}
+                    ]
+                },
+                {
+                    name: "Извини, сегодня праздник", cover: DOMAIN + "/ab67616d0000b273fa262865466382604c11e98a.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                        {name: "Извини, сегодня праздник", url: DOMAIN + "/Серега пират - извини сегодня праздник.mp3"}
+                    ]
+                },
+                {
+                    name: "На луне", cover: DOMAIN + "/ab67616d0000b2739bb8b3520d73d957a29c29a4.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                        {name: "На луне", url: DOMAIN + "/Серега пират - на луне.mp3"}
+                    ]
+                },
+                {
+                    name: "Ну и что, что я вор", cover: DOMAIN + "/ab67616d0000b273feafa1c332efb39a2419612b.jpg", year: "2022",
+                    isSingle: true, tracks: [
+                        {name: "Ну и что, что я вор", url: DOMAIN + "/Серега пират - ну и что, что я вор？.mp3"}
+                    ]
+                },
+                {
+                    name: "Тп на аме", cover: DOMAIN + "/ab67616d0000b273d9f3873cb80e53da97f245b3.jpg", year: "2022",
+                    isSingle: true, tracks: [
+                        {name: "Тп на аме", url: DOMAIN + "/Серега пират - тп на аме.mp3"}
+                    ]
+                },
+                {
+                    name: "Я сворую бабки", cover: DOMAIN + "/ab67616d0000b273d30a6b3dc97ed56ee9f4391f.jpg", year: "2021",
+                    isSingle: true, tracks: [
+                        {name: "Я сворую бабки", url: DOMAIN + "/Серега пират, LLIIEEDD - я сворую бабки (prod. fantom).mp3"}
+                    ]
+                },
+                {
+                    name: "зомби апокалипсис", cover: DOMAIN + "/ab67616d0000b273ea218306bb381f5d35bcdc5a.jpg", year: "2023",
+                    isSingle: true, tracks: [
+                        {name: "зомби апокалипсис", url: DOMAIN + "/Серега пират, qeqoqeq - зомби апокалипсис (ILIXX BEATS prod).mp3"}
+                    ]
+                },
+                {
+                    name: "ЧСВ", cover: DOMAIN + "/ab67616d0000b273f3e8f227633822e9d730c4ca.jpg", year: "2024",
+                    isSingle: true, tracks: [
+                        {name: "ЧСВ", url: DOMAIN + "/ЧСВ.mp3"}
+                    ]
+                },
+                {
+                    name: "Я поднимаю свою голову вверх", cover: DOMAIN + "/\tab67616d0000b27321940b628fe6a5d4677922a5.jpg", year: "2023",
+                    isSingle: true, tracks: [
+                        {name: "Я поднимаю свою голову вверх", url: DOMAIN + "/я поднимаю свою голову вверх.mp3"}
                     ]
                 },
             ]
@@ -299,6 +379,28 @@ const mainSlice = createSlice({
                         track.id = mainIdController++;
                         track.author = author.name;
                         track.album = album.name;
+
+                        /*let initAudio = new Audio(track.url!);
+                        initAudio.volume = 0;*/
+
+                        /*let val = initAudio.duration;
+                        track.duration = val;
+                        console.log(">>>" + val);*/
+
+                        /*var audio = new Audio();
+                        audio.onloadedmetadata = function(){
+                            console.log(audio.duration);
+                        };
+                        audio.src = track.url!;*/
+
+
+
+                        /*initAudio.oncanplay = function(){
+                            let val = initAudio.duration;
+                            //track.duration = val;
+                            console.log(">>>" + val);
+                        };*/
+
                     })
                 })
             })

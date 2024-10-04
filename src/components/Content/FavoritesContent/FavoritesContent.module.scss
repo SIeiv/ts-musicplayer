@@ -29,8 +29,11 @@
   .favoriteAuthors {
 
     .authors {
-      display: flex;
-      margin-block: 15px;
+      margin-top: 10px;
+
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: repeat(auto-fit, 230px);
 
     }
 
@@ -46,8 +49,11 @@
   .favoriteAlbums {
 
     .albums {
-      display: flex;
-      margin-block: 15px;
+      margin-top: 10px;
+
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: repeat(auto-fit, 230px);
 
       .album {
         margin-right: 10px;

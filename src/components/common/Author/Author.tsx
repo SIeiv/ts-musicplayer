@@ -2,13 +2,12 @@ import styles from "./Author.module.scss";
 import {NavLink} from "react-router-dom";
 import {AuthorType, NewTrackType} from "../../../types/type.ts";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
-import {MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled} from "react-icons/md";
+import {MdOutlinePlayCircleFilled} from "react-icons/md";
 import {
-    addAuthorToFavorites, addPin, audioPause, audioPlay, audioPlayNext, audioResume, deletePin,
+    addAuthorToFavorites, addPin, audioPlay, audioPlayNext, deletePin,
     removeAuthorFromFavorites
 } from "../../../redux/main.slice.ts";
 import ItemOverlay from "../ItemOverlay/ItemOverlay.tsx";
-import {useState} from "react";
 
 interface IProps {
     authorEntity: AuthorType
@@ -16,8 +15,6 @@ interface IProps {
 
 function Author({authorEntity}: IProps) {
     const dispatch = useAppDispatch();
-    const [isTouched, setIsTouched] = useState(false);
-    const isAudioPlaying = useAppSelector(state => state.main.audioState.isPlaying);
     const audioEntity = useAppSelector(state => state.main.audioState.source);
     const authorToFavorites = () => {
         dispatch(addAuthorToFavorites(authorEntity.id))
@@ -35,30 +32,17 @@ function Author({authorEntity}: IProps) {
     })
 
     let btnControl = () => {
-        if (isAudioPlaying) {
-            return (
-                <button onClick={() => {
-                    dispatch(audioPause());
-                }} className={styles.playButton}>
-                    <MdOutlinePauseCircleFilled/>
-                </button>
-            );
-        }
         return (
             <button onClick={() => {
-                if (isTouched) {
-                    dispatch(audioResume());
-                } else {
-                    dispatch(audioPlay({
-                        src: authorEntity.albums[0].tracks[0].url,
-                        track: authorEntity.albums[0].tracks[0],
-                        queue: queue,
-                    }));
-                    audioEntity.onended = () => {
-                        dispatch(audioPlayNext())
-                    };
-                    setIsTouched(true);
-                }
+                dispatch(audioPlay({
+                    src: authorEntity.albums[0].tracks[0].url,
+                    track: authorEntity.albums[0].tracks[0],
+                    queue: queue,
+                }));
+                audioEntity.onended = () => {
+                    dispatch(audioPlayNext())
+                };
+
             }} className={styles.playButton}>
                 <MdOutlinePlayCircleFilled/>
             </button>
@@ -86,7 +70,8 @@ function Author({authorEntity}: IProps) {
                 <img src={authorEntity.avatar} alt=""/>
                 <NavLink to={`/${authorEntity.name.toLowerCase()}`} className={styles.nav}/>
                 <div className={styles.buttons}>
-                    <ItemOverlay onAPinClick={onAPinClick} onDPinClick={onDPinClick} btnControl={btnControl} objectEntity={authorEntity}
+                    <ItemOverlay onAPinClick={onAPinClick} onDPinClick={onDPinClick} btnControl={btnControl}
+                                 objectEntity={authorEntity}
                                  addToFavorites={authorToFavorites} removeFromFavorites={removeFromFavorites}/>
                 </div>
 

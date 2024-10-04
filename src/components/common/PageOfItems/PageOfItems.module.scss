@@ -11,5 +11,7 @@
 }
 
 .items {
-  display: flex;
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, 230px);
 }
