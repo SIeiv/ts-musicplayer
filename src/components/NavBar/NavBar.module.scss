@@ -3,12 +3,30 @@
   min-width: 215px;
   background-color: #0D0D0D;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
 
   .buttons {
     margin-block: 25px;
   }
-  .pins {
-    margin-block: 25px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .pinsWrapper {
+    overflow-y: scroll;
+    margin-bottom: 20px;
+
+    .contentWrapper {
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .pins {
+
+    }
   }
 
   .button {

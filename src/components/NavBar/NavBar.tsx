@@ -17,8 +17,10 @@ const NavBar = () => {
                 <NavBarButton name={"Главная"} to={"/main"} icon={<PiMusicNotesBold/>}/>
                 <NavBarButton name={"Коллекция"} to={"/favorites"} icon={<MdFavorite/>}/>
             </div>
-            <div className={styles.pins}>
-                {pinEls}
+            <div className={styles.pinsWrapper}>
+                <div className={styles.pins}>
+                    {pinEls}
+                </div>
             </div>
         </div>
     )

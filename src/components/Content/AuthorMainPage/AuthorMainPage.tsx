@@ -2,7 +2,7 @@ import styles from "./AuthorMainPage.module.scss";
 import favoritesCover from "../../../assets/playlist-cover_like.png";
 import {AlbumType, AuthorType, NewTrackType} from "../../../types/type.ts";
 import CustomNavLink from "../../common/CustomNavLink/CustomNavLink.tsx";
-import {useAppDispatch, useAppSelector, useWindowSize} from "../../../hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import Track from "../../common/Track/Track.tsx";
 import Collection from "../../common/Collection/Collection.tsx";
 import Album from "../../common/Album/Album.tsx";
@@ -20,7 +20,7 @@ import RoundButton from "../../common/RoundButton/RoundButton.tsx";
 import {MdFavorite, MdFavoriteBorder, MdOutlinePushPin, MdPushPin} from "react-icons/md";
 import LGPlayButton from "../../common/LGPlayButton/LGPlayButton.tsx";
 import PageOfItems from "../../common/PageOfItems/PageOfItems.tsx";
-import {useEffect, useState} from "react";
+import SmartRow from "../../common/SmartRow/SmartRow.tsx";
 
 interface IProps {
     authorEntity: AuthorType
@@ -29,14 +29,6 @@ interface IProps {
 function AuthorMainPage({authorEntity}: IProps) {
     const mainData = useAppSelector(state => state.main.mainData);
     const dispatch = useAppDispatch();
-
-    const [albumPreviewItems, setAlbumPreviewItems] = useState(6);
-
-    const [width, height] = useWindowSize();
-
-    useEffect(() => {
-        setAlbumPreviewItems((width - 245) / 235 - 1);
-    }, [width])
 
     let authorTracks: Array<NewTrackType> = [];
     let authorAlbums: Array<AlbumType> = [];
@@ -105,8 +97,6 @@ function AuthorMainPage({authorEntity}: IProps) {
     const albumEls = authorAlbums.map(a => <Album AlbumEntity={a} author={authorEntity.name}/>);
     let trackEls2 = authorTracks.map(e => <Track trackEntity={e} author={authorEntity.name} queue={authorTracks}/>);
 
-    const albumPreview = albumEls.map((e, i) => i < albumPreviewItems && e);
-
     return (
         <div>
             <Routes>
@@ -160,10 +150,9 @@ function AuthorMainPage({authorEntity}: IProps) {
                         <div className={styles.nav}>
                             <CustomNavLink text={"Альбомы"} to={"albums"}/>
                         </div>
-                        <div className={styles.albumsEls}>
-                            {albumPreview}
-                        </div>
-                    </div></div>}/>
+                        <SmartRow items={AlbumEls}/>
+                    </div>
+                </div>}/>
             </Routes>
 
         </div>

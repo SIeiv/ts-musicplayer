@@ -9,6 +9,7 @@ import Author from "../../common/Author/Author.tsx";
 import {AlbumType, AuthorType} from "../../../types/type.ts";
 import Album from "../../common/Album/Album.tsx";
 import PageOfItems from "../../common/PageOfItems/PageOfItems.tsx";
+import SmartRow from "../../common/SmartRow/SmartRow.tsx";
 
 function FavoritesContent() {
     const favoriteTracks = useAppSelector(state => state.main.favoritePlaylist);
@@ -24,10 +25,10 @@ function FavoritesContent() {
     });
 
     let authors = favoriteAuthors.map((author: AuthorType) => {
-        return <div className={styles.author}><Author authorEntity={author}/></div>
+        return <Author authorEntity={author}/>
     });
     let albums = favoriteAlbums.map((album: AlbumType) => {
-        return <div className={styles.author}><Album AlbumEntity={album} author={album.tracks[0].author!}/></div>
+        return <Album AlbumEntity={album} author={album.tracks[0].author!}/>
     });
 
 
@@ -60,7 +61,7 @@ function FavoritesContent() {
                                     <CustomNavLink text={"Любимые альбомы"} to={"albums"}/>
                                 </div>
                                 <div className={styles.albums}>
-                                    {albums}
+                                    <SmartRow items={albums}/>
                                 </div>
                             </div>
                             : <div></div>
@@ -71,7 +72,7 @@ function FavoritesContent() {
                                     <CustomNavLink text={"Любимые исполнители"} to={"authors"}/>
                                 </div>
                                 <div className={styles.authors}>
-                                    {authors}
+                                    <SmartRow items={authors}/>
                                 </div>
                             </div>
                             : <div></div>

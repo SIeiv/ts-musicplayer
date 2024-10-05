@@ -625,6 +625,9 @@ const mainSlice = createSlice({
                         author.isPinned = true;
                     }
                 });
+                state.favoriteAuthors.forEach(author => {
+                    author.id === id && (author.isPinned = true)
+                })
             } else if (type === "playlist") {
                 state.favoritePlaylistIsPinned = true;
             } else if (type === "album" || type === "single") {
@@ -635,6 +638,9 @@ const mainSlice = createSlice({
                             newPin.path = `/${author.name.toLowerCase()}/${album.name.toLowerCase()}`
                         }
                     })
+                })
+                state.favoriteAlbums.forEach(album => {
+                    album.id === id && (album.isPinned = true)
                 })
             }
 
@@ -653,6 +659,10 @@ const mainSlice = createSlice({
                         author.isPinned = false;
                     }
                 })
+
+                state.favoriteAuthors.forEach(author => {
+                    author.id === id && (author.isPinned = false)
+                })
             } else if (type === "playlist") {
                 state.favoritePlaylistIsPinned = false;
             } else if (type === "album" || type === "single") {
@@ -662,6 +672,10 @@ const mainSlice = createSlice({
                             album.isPinned = false;
                         }
                     })
+                })
+
+                state.favoriteAlbums.forEach(album => {
+                    album.id === id && (album.isPinned = false)
                 })
             }
         }

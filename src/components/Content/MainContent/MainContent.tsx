@@ -12,6 +12,7 @@ import Track from "../../common/Track/Track.tsx";
 import {Route, Routes} from "react-router-dom";
 import PageOfItems from "../../common/PageOfItems/PageOfItems.tsx";
 import SearchCategoryButton from "../ContentSearch/SearchCategoryButton/SearchCategoryButton.tsx";
+import SmartRow from "../../common/SmartRow/SmartRow.tsx";
 
 const MainContent = () => {
     const dispatch = useAppDispatch();
@@ -82,17 +83,13 @@ const MainContent = () => {
                             <div className={styles.nav}>
                                 <CustomNavLink text={"Исполнители"} to={"authors"}/>
                             </div>
-                            <div className={styles.flex}>
-                                {authors}
-                            </div>
+                            <SmartRow items={authors}/>
                         </div>
                         <div className={styles.element}>
                             <div className={styles.nav}>
                                 <CustomNavLink text={"Альбомы"} to={"albums"}/>
                             </div>
-                            <div className={styles.flex}>
-                                {albums}
-                            </div>
+                            <SmartRow items={albums}/>
                         </div>
                         <div className={styles.element}>
                             <div className={styles.nav}>

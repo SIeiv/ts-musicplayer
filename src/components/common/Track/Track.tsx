@@ -9,7 +9,7 @@ import {
     audioPlayNext,
     audioResume, initDuration
 } from "../../../redux/main.slice.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
 import {NewTrackType} from "../../../types/type.ts";
 import {NavLink} from "react-router-dom";
@@ -31,23 +31,28 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const [isTouched, setIsTouched] = useState(false);
     const [duration, setDuration] = useState(0);
-    const initAudio = useAppSelector(state => state.main.initAudio)
 
 
 
 
     /*const dur = async () => {
-        let tempAudio = new Audio(trackEntity.url!);
-        tempAudio.volume = 0;
-        await tempAudio.play();
-        setDuration(tempAudio.duration);
+
     }
     dur();*/
 
-    dispatch(initDuration(trackEntity));
+    /*let tempAudio = new Audio(trackEntity.url!);
+    tempAudio.volume = 0;
+    tempAudio.onloadedmetadata = () => {
+        console.log(tempAudio.duration);
+        setDuration(tempAudio.duration);
+    }*/
+
+
+    /*dispatch(initDuration(trackEntity));
     initAudio.onloadedmetadata = () => {
+        console.log(initAudio.duration)
         setDuration(initAudio.duration);
-    }
+    }*/
 
 
     let btnControl = () => {
