@@ -1,15 +1,14 @@
 import styles from "./Track.module.scss";
 import missingTitle from "../../../assets/Missing_Tile_BE3.png";
 import {MdOutlinePauseCircleFilled, MdOutlinePlayCircleFilled} from "react-icons/md";
-//import {IoHeartDislikeOutline} from "react-icons/io5";
 import {useAppDispatch, useAppSelector} from "../../../hooks.ts";
 import {
     audioPause,
     audioPlay,
     audioPlayNext,
-    audioResume, initDuration
+    audioResume,
 } from "../../../redux/main.slice.ts";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import FavoriteButton from "../FavoriteButton/FavoriteButton.tsx";
 import {NewTrackType} from "../../../types/type.ts";
 import {NavLink} from "react-router-dom";
@@ -30,7 +29,7 @@ const Track = ({trackEntity, author, queue, type = "default", num}: IProps) => {
     const audioEntity = useAppSelector(state => state.main.audioState.source);
     const currentTrack = useAppSelector(state => state.main.audioState.currentTrack);
     const [isTouched, setIsTouched] = useState(false);
-    const [duration, setDuration] = useState(0);
+    const [duration] = useState(0);
 
 
 

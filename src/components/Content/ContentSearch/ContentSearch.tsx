@@ -49,7 +49,7 @@ const ContentSearch = () => {
         })
     }
 
-    const onSearchChange = (e: any) => {
+    const onSearchChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setSearchInput(e.target.value);
     }
 

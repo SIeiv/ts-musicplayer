@@ -14,7 +14,7 @@ const NavBar = () => {
     return (<div className={styles.navbar}>
             <div className={styles.buttons}>
                 <NavBarButton name={"Поиск"} to={"/search"} icon={<CgSearch/>}/>
-                <NavBarButton name={"Главная"} to={"/main"} icon={<PiMusicNotesBold/>}/>
+                <NavBarButton name={"Главная"} to={"/"} icon={<PiMusicNotesBold/>}/>
                 <NavBarButton name={"Коллекция"} to={"/favorites"} icon={<MdFavorite/>}/>
             </div>
             <div className={styles.pinsWrapper}>

@@ -1,6 +1,5 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {AlbumType, AuthorType, NewTrackType, PinType} from "../types/type.ts";
-import author from "../components/common/Author/Author.tsx";
 
 const DOMAIN = 'http://f1003580.xsph.ru/';
 
@@ -198,20 +197,6 @@ const initialState = {
                 },
             ]
         },
-        /*{
-            name: "Даня Кашамалашова", avatar: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", albums: [
-                {
-                    name: "Zalupa", id: 31, cover: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg", tracks: [
-                        {
-                            name: "Артхаус",
-                            id: 311,
-                            url: DOMAIN + "cringe/IMG_0247.mp3",
-                            cover: DOMAIN + "cringe/photo_2024-09-24_14-00-38.jpg"
-                        }
-                    ]
-                },
-            ]
-        },*/
         {
             name: "C418", avatar: DOMAIN + "c418/avatar.jpg", albums: [
                 {
@@ -414,7 +399,7 @@ const mainSlice = createSlice({
             audioState.source.play();
             audioState.isPlaying = true;
         },
-        //refactor etot yzhas syka
+        //refactor etot yzhas
         audioPlayNext({audioState}) {
             if (audioState.isRandom === true) {
                 audioState.placeInQueue = Math.floor(Math.random() * audioState.currentQueue.length);
