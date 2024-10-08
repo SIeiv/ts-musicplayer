@@ -22,38 +22,6 @@ const initialState = {
                         {name: "Vargamor", url: DOMAIN + "powerwolf/wake-up-the-wicked/spotifydown.com - Vargamor.mp3"},
                     ]
                 },
-                {
-                    name: "AI Music", cover: DOMAIN + "powerwolf/ai-music/cover.png", year: 2024, tracks: [
-                        {
-                            name: "Владимир Путин Молодец!",
-                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Владимир Путин Молодец! (AI Music, Udio AI Cover).mp3",
-                        },
-                        {
-                            name: "Говновоз",
-                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Говновоз (AI).mp3",
-                        },
-                        {
-                            name: "Вот и помер дед Максим",
-                            url: DOMAIN + "powerwolf/ai-music/Вот и помер дед Максим, но исполнитель POWERWOLF (AI COVER).mp3",
-                        },
-                        {
-                            name: "Убили негра",
-                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Убили негра (AI Music, Udio AI Cover Запрещенные барабанщи.mp3",
-                        },
-                        {
-                            name: "Частушки",
-                            url: DOMAIN + "powerwolf/ai-music/Частушки, но это Powerwolf (AI cover).mp3",
-                        },
-                        {
-                            name: "Терентий",
-                            url: DOMAIN + "powerwolf/ai-music/Электрослабость - Терентий, но это Powerwolf (AI COVER).mp3",
-                        },
-                        {
-                            name: "Священная война",
-                            url: DOMAIN + "powerwolf/ai-music/Powerwolf - Священная война (Ai Cover).mp3",
-                        },
-                    ]
-                },
             ]
         },
         {
